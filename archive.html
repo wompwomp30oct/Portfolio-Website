@@ -1,0 +1,137 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>The Archive — 29 plates · Shreya Tiwari</title>
+<meta name="description" content="Every plate in the archive: collage, poster type, night frames and daylight photographs, 2023–2026. Filter by series or read it as a ledger.">
+<meta name="theme-color" content="#F4EFE1">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' fill='%23141210'/%3E%3Crect x='7' y='7' width='18' height='18' fill='none' stroke='%23E5A024' stroke-width='2'/%3E%3Ccircle cx='16' cy='16' r='4' fill='%23D92B1C'/%3E%3C/svg%3E">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=JetBrains+Mono:wght@400;500&family=Plus+Jakarta+Sans:wght@400;500;600&family=Syne:wght@700;800&family=Yatra+One&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="css/kagaz.css">
+<script>document.documentElement.classList.add('js')</script>
+</head>
+<body>
+<a class="skip" href="#main">Skip to content</a>
+<div class="curtain" aria-hidden="true"><div class="curtain__label"><span class="deva">०१</span><span class="mono">The Archive</span></div></div>
+
+<header class="nav">
+  <div class="wrap">
+    <a class="brand" href="index.html" aria-label="Shreya Tiwari, home">
+      <span class="brand__mono" lang="hi" aria-hidden="true">श्रे</span>
+      <span class="brand__word">Shreya <em>Tiwari</em></span>
+    </a>
+    <nav class="nav__links" aria-label="Primary">
+      <a href="archive.html" aria-current="page"><span class="n">01</span>Archive</a>
+      <a href="about.html"><span class="n">02</span>About</a>
+      <a href="system.html"><span class="n">03</span>Colophon</a>
+      <a class="btn btn-primary" href="index.html#contact">Say hello</a>
+    </nav>
+    <button class="nav__toggle" type="button" aria-expanded="false" aria-controls="sheet"><span class="lbl">Index</span><span class="bars" aria-hidden="true"></span></button>
+  </div>
+</header>
+<div class="sheet" id="sheet">
+  <ol>
+    <li><a href="archive.html" aria-current="page"><span class="deva">०१</span><span class="s-title">Archive</span><span class="mono-s muted"><span data-count="all">29</span> plates</span></a></li>
+    <li><a href="about.html"><span class="deva">०२</span><span class="s-title">About</span><span class="mono-s muted">Practice</span></a></li>
+    <li><a href="system.html"><span class="deva">०३</span><span class="s-title">Colophon</span><span class="mono-s muted">System</span></a></li>
+    <li><a href="index.html#contact"><span class="deva">०४</span><span class="s-title">Contact</span><span class="mono-s muted">Say hello</span></a></li>
+  </ol>
+  <p class="mono-s muted"><span data-ist class="clock">--:--:-- IST</span> · India</p>
+</div>
+
+<main id="main">
+
+<!-- page header: title left (8 cols), live series description right (4) -->
+<section class="phead turn-b">
+  <div class="wrap">
+    <div class="g12">
+      <div class="phead__t">
+        <span class="idx"><span class="deva">०१</span><span>/ 01 · Index of plates</span></span>
+        <h1 class="display lines">
+          <span><span>The <em>archive</em>,</span></span>
+          <span><span><span lang="hi" class="deva" data-count="all" data-deva>२९</span> plates.</span></span>
+        </h1>
+      </div>
+      <div class="phead__m">
+        <p class="muted rise" data-series-desc aria-live="polite">Everything, oldest dated plate first. Undated pieces sit at the end.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="section" style="padding-top:clamp(32px,4vw,56px)">
+  <div class="wrap">
+    <div class="archive-tools">
+      <div class="filters" role="group" aria-label="Filter by series"></div>
+      <div style="display:flex;align-items:center;gap:16px">
+        <span class="mono-s muted" data-filter-status role="status"></span>
+        <div class="view-toggle" role="group" aria-label="View">
+          <button type="button" data-view="grid" aria-pressed="true" aria-label="Grid view"><svg class="ico" viewBox="0 0 16 16" aria-hidden="true"><path d="M2 2h5v5H2zM9 2h5v5H9zM2 9h5v5H2zM9 9h5v5H9z"/></svg></button>
+          <button type="button" data-view="ledger" aria-pressed="false" aria-label="Ledger view"><svg class="ico" viewBox="0 0 16 16" aria-hidden="true"><path d="M1 3h14M1 8h14M1 13h14"/></svg></button>
+        </div>
+      </div>
+    </div>
+
+    <div data-view-grid>
+      <div class="masonry" data-archive></div>
+    </div>
+
+    <div data-view-ledger hidden>
+      <table class="ledger">
+        <caption class="visually-hidden">All plates as a ledger</caption>
+        <thead><tr><th>Date</th><th aria-label="Thumbnail"></th><th>Plate</th><th class="l-series">Series</th></tr></thead>
+        <tbody data-ledger></tbody>
+      </table>
+    </div>
+
+    <noscript><p class="archive-empty mono">The archive is built from js/works.js. Turn on JavaScript to browse it.</p></noscript>
+  </div>
+</section>
+
+</main>
+
+<div class="trim trim--dark" role="presentation"></div>
+<footer class="footer on-dark">
+  <div class="wrap">
+    <div class="g12 footer__grid">
+      <div style="grid-column:span 5">
+        <p class="footer__sign" lang="hi">फिर मिलेंगे</p>
+        <p class="mono-s muted" style="margin-top:12px">phir milenge — see you again</p>
+      </div>
+      <div style="grid-column:7 / span 2">
+        <h3>Index</h3>
+        <ul class="mono-s">
+          <li><a href="archive.html">01 Archive</a></li>
+          <li><a href="about.html">02 About</a></li>
+          <li><a href="system.html">03 Colophon</a></li>
+          <li><a href="index.html#contact">04 Contact</a></li>
+        </ul>
+      </div>
+      <div style="grid-column:span 2">
+        <h3>Elsewhere</h3>
+        <ul class="mono-s">
+          <li><a href="#" data-social="instagram" rel="noopener">Instagram ↗</a></li>
+          <li><a href="#" data-social="pinterest" rel="noopener">Pinterest ↗</a></li>
+          <li><a href="#" data-social="behance" rel="noopener">Behance ↗</a></li>
+        </ul>
+      </div>
+      <div style="grid-column:span 2">
+        <h3>Local time</h3>
+        <p class="mono-s clock" data-ist>--:--:-- IST</p>
+        <p class="mono-s muted" style="margin-top:8px">India</p>
+      </div>
+    </div>
+    <div class="footer__base mono-s muted">
+      <span>© <span data-year>2026</span> Shreya Tiwari. All plates © the artist.</span>
+      <span>Set in Instrument Serif, Syne, Plus Jakarta Sans, JetBrains Mono &amp; Yatra One</span>
+    </div>
+  </div>
+</footer>
+
+<script src="js/works.js"></script>
+<script src="js/site.js"></script>
+</body>
+</html>

@@ -1,0 +1,547 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Colophon — the Kagaz &amp; Chiaroscuro system · Shreya Tiwari</title>
+<meta name="description" content="The design system behind the site: sitemap, colour, type, grid, components, motion and responsive rules.">
+<meta name="theme-color" content="#F4EFE1">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' fill='%23141210'/%3E%3Crect x='7' y='7' width='18' height='18' fill='none' stroke='%23E5A024' stroke-width='2'/%3E%3Ccircle cx='16' cy='16' r='4' fill='%23D92B1C'/%3E%3C/svg%3E">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=JetBrains+Mono:wght@400;500&family=Plus+Jakarta+Sans:wght@400;500;600&family=Syne:wght@700;800&family=Yatra+One&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="css/kagaz.css">
+<script>document.documentElement.classList.add('js')</script>
+<style>
+  /* page-only helpers for the specimen sheet */
+  .sys-nav { position: sticky; top: calc(var(--nav-h) + 24px); }
+  .sys-nav a { display: grid; grid-template-columns: 2rem 1fr; padding: 9px 0; border-bottom: var(--border-brass); text-decoration: none; }
+  .sys-nav a:hover { color: var(--accent-sindoor); }
+  .sys-nav .deva { color: var(--accent-sindoor); }
+  .sys-body { grid-column: 4 / span 9; }
+  .sys-aside { grid-column: 1 / span 2; }
+  .sys-block { padding-bottom: clamp(64px, 8vw, 112px); }
+  .sys-block + .sys-block { padding-top: clamp(8px, 1vw, 16px); }
+  .specimen { border: var(--border-ink); padding: clamp(20px, 3vw, 36px); background: var(--bg-kagaz); }
+  .specimen + .specimen { border-top: 0; }
+  .specimen.on-dark { background: var(--bg-courtyard); border-color: var(--ink-kajal); }
+  .spec-label { display: flex; justify-content: space-between; gap: 16px; margin-bottom: 18px; color: var(--ink-slate); }
+  .on-dark .spec-label { color: var(--ink-cream-dim); }
+  .row { display: flex; flex-wrap: wrap; gap: 20px; align-items: center; }
+
+  .swatches { display: grid; grid-template-columns: repeat(auto-fill, minmax(190px, 1fr)); border-top: var(--border-ink); border-left: var(--border-ink); }
+  .sw { border-right: var(--border-ink); border-bottom: var(--border-ink); }
+  .sw__chip { height: 110px; border-bottom: var(--border-ink); position: relative; }
+  .sw__chip span { position: absolute; left: 12px; bottom: 10px; }
+  .sw__info { padding: 12px 14px 14px; display: grid; gap: 4px; }
+  .sw__info b { font-family: var(--font-brutalist); text-transform: uppercase; font-size: .9375rem; letter-spacing: -.01em; }
+  .bar { display: flex; height: 44px; border: var(--border-ink); margin-top: 24px; }
+  .bar span { display: grid; place-items: center; font: 500 var(--t-mono-s)/1 var(--font-mono); letter-spacing: .04em; }
+  .bar span + span { border-left: var(--border-ink); }
+
+  .type-row { display: grid; grid-template-columns: 12rem 1fr; gap: 24px; padding: 28px 0; border-bottom: var(--border-ink); align-items: baseline; }
+  .type-row:first-child { border-top: var(--border-ink); }
+
+  .grid-demo { display: grid; grid-template-columns: repeat(12, 1fr); gap: 12px; }
+  .grid-demo span { height: 64px; background: rgba(217,43,28,.1); border: 1px solid rgba(217,43,28,.5); display: grid; place-items: end center; padding-bottom: 6px; font: 500 10px/1 var(--font-mono); color: var(--accent-sindoor); }
+  .grid-demo .wide { grid-column: span 7; background: var(--bg-parchment); border-color: var(--ink-kajal); color: var(--ink-kajal); }
+  .grid-demo .narrow { grid-column: span 5; background: var(--bg-courtyard); border-color: var(--ink-kajal); color: var(--ink-cream); }
+
+  .tree { font-family: var(--font-mono); font-size: var(--t-mono); line-height: 1.9; }
+  .tree li { position: relative; padding-left: 22px; }
+  .tree li::before { content: ""; position: absolute; left: 0; top: .95em; width: 14px; border-top: 1.5px solid var(--ink-kajal); }
+  .tree ul { margin-left: 8px; border-left: 1.5px solid var(--ink-kajal); }
+  .tree a { text-decoration: none; }
+  .tree a:hover { color: var(--accent-sindoor); }
+  .tree .note { color: var(--ink-slate); text-transform: none; letter-spacing: 0; }
+  .sitemap { display: grid; grid-template-columns: repeat(4, minmax(0,1fr)); border: var(--border-ink); }
+  .sitemap > div { padding: 20px; border-right: var(--border-ink); }
+  .sitemap > div:last-child { border-right: 0; }
+  .sitemap h3 { font-family: var(--font-brutalist); text-transform: uppercase; font-size: 1.125rem; letter-spacing: -.01em; margin: 8px 0 12px; }
+  .flow { display: flex; flex-wrap: wrap; align-items: center; gap: 10px; margin-top: 24px; }
+  .flow .tag { background: var(--bg-kagaz); }
+  .flow .arr { font-family: var(--font-mono); color: var(--accent-sindoor); }
+
+  .tbl { width: 100%; border-collapse: collapse; font-size: .9375rem; }
+  .tbl th { text-align: left; font: 500 var(--t-mono-s)/1.4 var(--font-mono); letter-spacing: .06em; text-transform: uppercase; color: var(--ink-slate); padding: 0 16px 10px 0; border-bottom: var(--border-ink); }
+  .tbl td { padding: 14px 16px 14px 0; border-bottom: var(--border-brass); vertical-align: top; }
+  .tbl td:first-child { font-family: var(--font-mono); font-size: var(--t-mono); white-space: nowrap; }
+  .tbl-wrap { overflow-x: auto; }
+
+  .dd { display: grid; grid-template-columns: 1fr 1fr; border: var(--border-ink); }
+  .dd > div { padding: 22px 24px; }
+  .dd > div + div { border-left: var(--border-ink); }
+  .dd li { padding: 10px 0; border-bottom: var(--border-brass); font-size: .9375rem; }
+  .dd h3 { font-family: var(--font-brutalist); text-transform: uppercase; font-size: 1.125rem; margin-bottom: 8px; }
+  .demo-wipe { width: 220px; }
+  .demo-wipe .mat__win { aspect-ratio: 4/5; }
+
+  @media (max-width: 1023px) {
+    .sys-aside { display: none; }
+    .sys-body { grid-column: 1 / -1; }
+    .sitemap { grid-template-columns: 1fr 1fr; }
+    .sitemap > div:nth-child(2) { border-right: 0; }
+    .sitemap > div:nth-child(-n+2) { border-bottom: var(--border-ink); }
+  }
+  @media (max-width: 767px) {
+    .type-row { grid-template-columns: 1fr; gap: 8px; }
+    .sitemap, .dd { grid-template-columns: 1fr; }
+    .sitemap > div { border-right: 0; border-bottom: var(--border-ink); }
+    .sitemap > div:last-child { border-bottom: 0; }
+    .dd > div + div { border-left: 0; border-top: var(--border-ink); }
+    .grid-demo { gap: 4px; }
+    .grid-demo span { font-size: 8px; }
+  }
+</style>
+</head>
+<body>
+<a class="skip" href="#main">Skip to content</a>
+<div class="curtain" aria-hidden="true"><div class="curtain__label"><span class="deva">०३</span><span class="mono">Colophon</span></div></div>
+
+<header class="nav">
+  <div class="wrap">
+    <a class="brand" href="index.html" aria-label="Shreya Tiwari, home">
+      <span class="brand__mono" lang="hi" aria-hidden="true">श्रे</span>
+      <span class="brand__word">Shreya <em>Tiwari</em></span>
+    </a>
+    <nav class="nav__links" aria-label="Primary">
+      <a href="archive.html"><span class="n">01</span>Archive</a>
+      <a href="about.html"><span class="n">02</span>About</a>
+      <a href="system.html" aria-current="page"><span class="n">03</span>Colophon</a>
+      <a class="btn btn-primary" href="index.html#contact">Say hello</a>
+    </nav>
+    <button class="nav__toggle" type="button" aria-expanded="false" aria-controls="sheet"><span class="lbl">Index</span><span class="bars" aria-hidden="true"></span></button>
+  </div>
+</header>
+<div class="sheet" id="sheet">
+  <ol>
+    <li><a href="archive.html"><span class="deva">०१</span><span class="s-title">Archive</span><span class="mono-s muted"><span data-count="all">29</span> plates</span></a></li>
+    <li><a href="about.html"><span class="deva">०२</span><span class="s-title">About</span><span class="mono-s muted">Practice</span></a></li>
+    <li><a href="system.html" aria-current="page"><span class="deva">०३</span><span class="s-title">Colophon</span><span class="mono-s muted">System</span></a></li>
+    <li><a href="index.html#contact"><span class="deva">०४</span><span class="s-title">Contact</span><span class="mono-s muted">Say hello</span></a></li>
+  </ol>
+  <p class="mono-s muted"><span data-ist class="clock">--:--:-- IST</span> · India</p>
+</div>
+
+<main id="main">
+
+<section class="phead turn-b">
+  <div class="wrap">
+    <div class="g12">
+      <div class="phead__t">
+        <span class="idx"><span class="deva">०३</span><span>/ 03 · Colophon</span></span>
+        <h1 class="display lines">
+          <span><span>How this site</span></span>
+          <span><span>is <em>set</em>.</span></span>
+        </h1>
+      </div>
+      <div class="phead__m">
+        <p class="muted rise">The working spec for <i>Kagaz &amp; Chiaroscuro</i>: editorial brutalism rooted in Indian materiality. Every specimen below is the live component, rendered from <span class="mono-s">css/kagaz.css</span>.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="wrap section" style="padding-top:clamp(40px,5vw,72px)">
+  <div class="g12">
+    <aside class="sys-aside">
+      <nav class="sys-nav mono-s" aria-label="On this page">
+        <a href="#ia"><span class="deva">०१</span>Sitemap</a>
+        <a href="#colour"><span class="deva">०२</span>Colour</a>
+        <a href="#type"><span class="deva">०३</span>Type</a>
+        <a href="#grid"><span class="deva">०४</span>Grid</a>
+        <a href="#components"><span class="deva">०५</span>Components</a>
+        <a href="#motion"><span class="deva">०६</span>Motion</a>
+        <a href="#responsive"><span class="deva">०७</span>Responsive</a>
+        <a href="#rules"><span class="deva">०८</span>Rules</a>
+      </nav>
+    </aside>
+
+    <div class="sys-body">
+
+      <!-- ================================================= 01 IA -->
+      <section id="ia" class="sys-block">
+        <header class="sec-head">
+          <span class="idx"><span class="deva">०१</span><span>/ 01</span></span>
+          <h2 class="display-s">Sitemap</h2>
+          <p class="sec-meta mono-s muted">Five documents. The archive is the spine; everything leads into a plate.</p>
+        </header>
+
+        <div class="sitemap">
+          <div>
+            <span class="idx"><span class="deva">००</span><span>/ index.html</span></span>
+            <h3>Home</h3>
+            <ul class="tree">
+              <li>Hero <span class="note">· statement + badge</span></li>
+              <li>01 Selected plates</li>
+              <li>02 Four ways in <span class="note">· series</span></li>
+              <li>03 After dark <span class="note">· film strip</span></li>
+              <li>04 About teaser</li>
+              <li>05 Ledger <span class="note">· by year</span></li>
+              <li>06 Contact</li>
+            </ul>
+          </div>
+          <div>
+            <span class="idx"><span class="deva">०१</span><span>/ archive.html</span></span>
+            <h3>Archive</h3>
+            <ul class="tree">
+              <li>Filter by series <span class="note">· #hash</span></li>
+              <li>Grid view <span class="note">· masonry</span></li>
+              <li>Ledger view <span class="note">· table</span></li>
+            </ul>
+          </div>
+          <div>
+            <span class="idx"><span class="deva">→</span><span>/ plate.html?w=</span></span>
+            <h3>Plate</h3>
+            <ul class="tree">
+              <li>Matted plate + spec</li>
+              <li>Up close <span class="note">· 3:1 crops</span></li>
+              <li>Previous / next</li>
+              <li>More from series</li>
+            </ul>
+          </div>
+          <div>
+            <span class="idx"><span class="deva">०२</span><span>/ about.html</span></span>
+            <h3>About</h3>
+            <ul class="tree">
+              <li>Spread + principles</li>
+              <li>Print spec <span class="note">· capabilities</span></li>
+              <li>Open to <span class="note">· services</span></li>
+              <li>Contact</li>
+            </ul>
+            <span class="idx" style="margin-top:20px"><span class="deva">०३</span><span>/ system.html</span></span>
+            <h3>Colophon</h3>
+          </div>
+        </div>
+
+        <p class="mono-s muted" style="margin-top:28px">Primary journey</p>
+        <div class="flow">
+          <span class="tag">Hero</span><span class="arr">→</span>
+          <span class="tag">Selected plate</span><span class="arr">→</span>
+          <span class="tag">Plate page</span><span class="arr">→</span>
+          <span class="tag">Next plate…</span><span class="arr">→</span>
+          <span class="tag">Archive filter</span><span class="arr">→</span>
+          <span class="tag" style="background:var(--accent-haldi)">Contact</span>
+        </div>
+        <p class="measure muted" style="margin-top:20px">Navigation stays to three words and a button. Content lives in one data file (<span class="mono-s">js/works.js</span>), so the archive grid, the ledger, the film strip, the series counts and every plate page update together when a plate is added.</p>
+      </section>
+
+      <!-- ================================================= 02 COLOUR -->
+      <section id="colour" class="sys-block">
+        <header class="sec-head">
+          <span class="idx"><span class="deva">०२</span><span>/ 02</span></span>
+          <h2 class="display-s">Colour</h2>
+          <p class="sec-meta mono-s muted">Natural pigments: sindoor, haldi, kajal, unbleached paper.</p>
+        </header>
+        <div class="swatches">
+          <div class="sw"><div class="sw__chip" style="background:#F4EFE1"></div><div class="sw__info"><b>Kagaz Cream</b><span class="mono-s">#F4EFE1 · 45%</span><span class="mono-s muted">--bg-kagaz · primary light</span></div></div>
+          <div class="sw"><div class="sw__chip" style="background:#E8DFC8"></div><div class="sw__info"><b>Raw Parchment</b><span class="mono-s">#E8DFC8 · 15%</span><span class="mono-s muted">--bg-parchment · mats, alt sections</span></div></div>
+          <div class="sw"><div class="sw__chip" style="background:#0D261F"></div><div class="sw__info"><b>Courtyard Emerald</b><span class="mono-s">#0D261F · 15%</span><span class="mono-s muted">--bg-courtyard · hero, footer</span></div></div>
+          <div class="sw"><div class="sw__chip" style="background:#15382E"></div><div class="sw__info"><b>Deep Pine</b><span class="mono-s">#15382E · 5%</span><span class="mono-s muted">--bg-deep-pine · film strip</span></div></div>
+          <div class="sw"><div class="sw__chip" style="background:#141210"></div><div class="sw__info"><b>Kajal Ink</b><span class="mono-s">#141210 · 10%</span><span class="mono-s muted">--ink-kajal · text, borders</span></div></div>
+          <div class="sw"><div class="sw__chip" style="background:#524B42"></div><div class="sw__info"><b>Weathered Slate</b><span class="mono-s">#524B42 · 3%</span><span class="mono-s muted">--ink-slate · metadata</span></div></div>
+          <div class="sw"><div class="sw__chip" style="background:#D92B1C"></div><div class="sw__info"><b>Sindoor Vermilion</b><span class="mono-s">#D92B1C · 4%</span><span class="mono-s muted">--accent-sindoor · CTA, focus</span></div></div>
+          <div class="sw"><div class="sw__chip" style="background:#A81B10"></div><div class="sw__info"><b>Burnt Crimson</b><span class="mono-s">#A81B10 · press</span><span class="mono-s muted">--accent-crimson · hover</span></div></div>
+          <div class="sw"><div class="sw__chip" style="background:#E5A024"></div><div class="sw__info"><b>Haldi Ochre</b><span class="mono-s">#E5A024 · 2%</span><span class="mono-s muted">--accent-haldi · hover fills</span></div></div>
+          <div class="sw"><div class="sw__chip" style="background:#F2E527"></div><div class="sw__info"><b>Acid Haldi</b><span class="mono-s">#F2E527 · &lt;1%</span><span class="mono-s muted">--accent-acid-haldi · badge, selection</span></div></div>
+          <div class="sw"><div class="sw__chip" style="background:#8C7032"></div><div class="sw__info"><b>Brass Rule</b><span class="mono-s">#8C7032 · rules</span><span class="mono-s muted">--rule-brass · dark dividers</span></div></div>
+        </div>
+        <div class="bar" role="img" aria-label="60 percent paper, 30 percent courtyard and ink, 10 percent pigment">
+          <span style="flex:60;background:var(--bg-kagaz)">60 · Kagaz + Parchment</span>
+          <span style="flex:30;background:var(--bg-courtyard);color:var(--ink-cream)">30 · Courtyard + Kajal</span>
+          <span style="flex:10;background:var(--accent-sindoor);color:var(--ink-cream)">10</span>
+        </div>
+        <div class="tbl-wrap" style="margin-top:28px">
+          <table class="tbl">
+            <thead><tr><th>Pair</th><th>Ratio (from the style guide)</th><th>Use</th></tr></thead>
+            <tbody>
+              <tr><td>Kajal / Kagaz</td><td>15.8 : 1 · AAA</td><td>All body copy on paper</td></tr>
+              <tr><td>Kagaz / Courtyard</td><td>13.2 : 1 · AAA</td><td>All copy on dark sections</td></tr>
+              <tr><td>Sindoor / Kagaz</td><td>4.7 : 1 · AA</td><td>Italic accent words, indices, links on hover</td></tr>
+              <tr><td>Kajal / Haldi</td><td>9.1 : 1 · AAA</td><td>Hover fills, email button, tags</td></tr>
+              <tr><td>Haldi / Kagaz</td><td>Not used for text</td><td>Too low on paper. Haldi type appears only on Courtyard</td></tr>
+            </tbody>
+          </table>
+        </div>
+        <p class="mono-s muted" style="margin-top:16px">Gradient policy: none, except the chiaroscuro scrim behind text over full-bleed photography. Transitions between paper and courtyard are always a 1.5px rule, never a fade.</p>
+      </section>
+
+      <!-- ================================================= 03 TYPE -->
+      <section id="type" class="sys-block">
+        <header class="sec-head">
+          <span class="idx"><span class="deva">०३</span><span>/ 03</span></span>
+          <h2 class="display-s">Type</h2>
+          <p class="sec-meta mono-s muted">Editorial drama · brutalist clarity · Devanagari heritage.</p>
+        </header>
+        <div>
+          <div class="type-row"><div class="mono-s muted">Display · Instrument Serif 400<br>46–96px · 0.98 · −0.02em</div><p class="display">Pictures I <em>cut</em> up</p></div>
+          <div class="type-row"><div class="mono-s muted">Display S · Instrument Serif<br>38–72px · section titles</div><p class="display-s">Selected <em>plates</em></p></div>
+          <div class="type-row"><div class="mono-s muted">Brutal · Syne 800 caps<br>28–56px · 1.02 · −0.03em</div><p class="brutal">The Mess in my head</p></div>
+          <div class="type-row"><div class="mono-s muted">Pull · Instrument Serif<br>28–48px</div><p class="pull">A dog with <em>opinions</em>.</p></div>
+          <div class="type-row"><div class="mono-s muted">Body · Plus Jakarta Sans 400<br>16–18px · 1.65</div><p class="measure">A burnt-out bus graded red and amber, mounted on a handmade-paper mat over a block-printed floral, stamped with a Devanagari date.</p></div>
+          <div class="type-row"><div class="mono-s muted">Mono · JetBrains Mono 500<br>11–13px · +0.04em · caps</div><p class="mono">Plate 13 / 29 · 29 Nov 2025 · 3:2</p></div>
+          <div class="type-row"><div class="mono-s muted">Devanagari · Yatra One<br>indices, dates, sign-off</div><p class="deva" lang="hi" style="font-size:2.5rem;color:var(--accent-sindoor)">०१ ०२ ०३ · २६ ११ २५ · फिर मिलेंगे</p></div>
+        </div>
+      </section>
+
+      <!-- ================================================= 04 GRID -->
+      <section id="grid" class="sys-block">
+        <header class="sec-head">
+          <span class="idx"><span class="deva">०४</span><span>/ 04</span></span>
+          <h2 class="display-s">Grid &amp; space</h2>
+          <p class="sec-meta mono-s muted">12 columns · 24px gutter · 1440px max · 16–64px margins.</p>
+        </header>
+        <div class="grid-demo" aria-hidden="true">
+          <span>1</span><span>2</span><span>3</span><span>4</span><span>5</span><span>6</span><span>7</span><span>8</span><span>9</span><span>10</span><span>11</span><span>12</span>
+          <span class="wide">7 · copy / plate</span><span class="narrow">5 · visual / meta</span>
+        </div>
+        <div class="tbl-wrap" style="margin-top:28px">
+          <table class="tbl">
+            <thead><tr><th>Token</th><th>Value</th><th>Where</th></tr></thead>
+            <tbody>
+              <tr><td>--section-gap</td><td>clamp(80px, 10vw, 140px)</td><td>Between major sections (guide minimum 120px on desktop)</td></tr>
+              <tr><td>--margin</td><td>clamp(16px, 4.4vw, 64px)</td><td>Outer page margin</td></tr>
+              <tr><td>--gutter</td><td>24px (16px on mobile)</td><td>Column gap</td></tr>
+              <tr><td>Splits</td><td>7/5 · 4/8 · 5/6 · 3/9</td><td>Hero · plates · spreads · details. Never 6/6 centred stacks</td></tr>
+              <tr><td>Radius</td><td>0 · 2px · 999px</td><td>Frames · buttons · tags only</td></tr>
+            </tbody>
+          </table>
+        </div>
+      </section>
+
+      <!-- ================================================= 05 COMPONENTS -->
+      <section id="components" class="sys-block">
+        <header class="sec-head">
+          <span class="idx"><span class="deva">०५</span><span>/ 05</span></span>
+          <h2 class="display-s">Components</h2>
+          <p class="sec-meta mono-s muted">Hover, focus and press states are live.</p>
+        </header>
+
+        <div class="specimen">
+          <div class="spec-label mono-s"><span>5.1 Buttons &amp; links · on paper</span><span>.btn-primary · .btn-secondary · .link</span></div>
+          <div class="row">
+            <a class="btn btn-primary" href="#components">Enter the archive <svg class="ico" viewBox="0 0 16 16" aria-hidden="true"><path d="M2 8h11M9 4l4 4-4 4"/></svg></a>
+            <a class="btn btn-secondary" href="#components">About the maker</a>
+            <a class="link" href="#components">Read the plate <span class="arr">→</span></a>
+          </div>
+        </div>
+        <div class="specimen on-dark">
+          <div class="spec-label mono-s"><span>5.2 Buttons · on courtyard</span><span>borders + shadows switch to cream</span></div>
+          <div class="row">
+            <a class="btn btn-primary" href="#components">Start a conversation</a>
+            <a class="btn btn-secondary" href="#components">Secondary</a>
+            <a class="link" href="#components">Whole archive <span class="arr">→</span></a>
+            <button class="icon-btn" type="button" aria-label="Next"><svg class="ico" viewBox="0 0 16 16" aria-hidden="true"><path d="M2 8h11M9 4l4 4-4 4"/></svg></button>
+          </div>
+        </div>
+        <div class="specimen">
+          <div class="spec-label mono-s"><span>5.3 Badge · tags · index stamp · Devanagari stamp</span><span>.zine-badge · .tag · .idx · .stamp</span></div>
+          <div class="row" style="gap:24px 32px">
+            <span class="zine-badge"><span class="dot" aria-hidden="true"></span>Archive open · 29 plates</span>
+            <span class="tags"><span class="tag">bilingual type</span><span class="tag">flare</span></span>
+            <span class="idx"><span class="deva">०५</span><span>/ 05</span></span>
+            <span class="idx idx--big"><span class="deva">१३</span><span>/ 13</span></span>
+            <span style="position:relative;width:120px;height:40px"><span class="stamp" lang="hi" style="left:0;top:4px">२६ ११ २५</span></span>
+          </div>
+        </div>
+        <div class="specimen">
+          <div class="spec-label mono-s"><span>5.4 Section heading</span><span>.sec-head</span></div>
+          <header class="sec-head" style="margin-bottom:0">
+            <span class="idx"><span class="deva">०२</span><span>/ 02</span></span>
+            <h3 class="display-s">Four ways <em>in</em></h3>
+            <p class="sec-meta mono-s muted">Index · title · rule · meta. Always ruled underneath.</p>
+          </header>
+        </div>
+        <div class="specimen">
+          <div class="spec-label mono-s"><span>5.5 Archival mat · card · duotone</span><span>.mat · .card · .duo</span></div>
+          <div class="g12" style="row-gap:24px;align-items:start">
+            <a class="card" href="plate.html?w=burnt-bus" style="grid-column:span 4">
+              <div class="mat"><div class="mat__win" style="aspect-ratio:4/5"><img src="assets/img/burnt-bus.jpg" alt="Burnt bus plate" loading="lazy"></div></div>
+              <div class="card__meta"><span class="card__title">Mat · default</span><span class="idx"><span class="deva">१३</span><span>/ 13</span></span><span class="card__sub mono-s">Full colour, 1.03× zoom inside the frame</span></div>
+            </a>
+            <a class="card" href="plate.html?w=afterimage" style="grid-column:span 4">
+              <div class="mat duo"><div class="mat__win" style="aspect-ratio:4/5"><img src="assets/img/afterimage.jpg" alt="Afterimage plate" loading="lazy"></div></div>
+              <div class="card__meta"><span class="card__title">Mat · duotone</span><span class="idx"><span class="deva">१०</span><span>/ 10</span></span><span class="card__sub mono-s">Courtyard + Kagaz, snaps to colour on hover</span></div>
+            </a>
+            <a class="card" href="plate.html?w=aankhein" style="grid-column:span 4">
+              <div class="mat mat--shadow"><div class="mat__win" style="aspect-ratio:4/5"><img src="assets/img/aankhein.jpg" alt="Aankhein plate" loading="lazy"></div></div>
+              <div class="card__meta"><span class="card__title">Mat · plate</span><span class="idx"><span class="deva">२७</span><span>/ 27</span></span><span class="card__sub mono-s">Hard 8px shadow for hero moments only</span></div>
+            </a>
+          </div>
+        </div>
+        <div class="specimen">
+          <div class="spec-label mono-s"><span>5.6 Ledger row · spec list · filter bar</span><span>.ledger · .spec · .filters</span></div>
+          <table class="ledger" style="margin-bottom:28px">
+            <thead><tr><th>Date</th><th aria-label="Thumbnail"></th><th>Plate</th><th class="l-series">Series</th></tr></thead>
+            <tbody>
+              <tr><td class="l-date">29.11.25</td><td class="l-thumb"><img src="assets/img/burnt-bus.jpg" alt=""></td><td class="l-title"><a href="plate.html?w=burnt-bus">२६ ११ २५</a></td><td class="l-series mono-s">Poster &amp; Type</td></tr>
+              <tr><td class="l-date">26.11.25</td><td class="l-thumb"><img src="assets/img/the-mess.jpg" alt=""></td><td class="l-title"><a href="plate.html?w=the-mess">THE MESS in my head</a></td><td class="l-series mono-s">Poster &amp; Type</td></tr>
+            </tbody>
+          </table>
+          <div class="g12" style="row-gap:24px;align-items:start">
+            <dl class="spec" style="grid-column:span 6"><dt>Date</dt><dd>29 Nov 2025</dd><dt>Format</dt><dd>3:2 · 3464 × 2309 px</dd></dl>
+            <div style="grid-column:span 6">
+              <div class="filters" role="group" aria-label="Filter demo">
+                <button type="button" aria-pressed="true">All <span class="c">29</span></button>
+                <button type="button" aria-pressed="false">Night <span class="c">09</span></button>
+                <button type="button" aria-pressed="false">Day <span class="c">05</span></button>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="specimen" style="padding-inline:0">
+          <div class="spec-label mono-s" style="padding-inline:clamp(20px,3vw,36px)"><span>5.7 Jaali trim · max twice per page</span><span>.trim · .trim--dark</span></div>
+          <div class="trim" role="presentation"></div>
+          <div style="height:16px"></div>
+          <div class="trim trim--dark" role="presentation"></div>
+        </div>
+      </section>
+
+      <!-- ================================================= 06 MOTION -->
+      <section id="motion" class="sys-block">
+        <header class="sec-head">
+          <span class="idx"><span class="deva">०६</span><span>/ 06</span></span>
+          <h2 class="display-s">Motion</h2>
+          <p class="sec-meta mono-s muted">Heavy paper and camera shutters. Never bouncy.</p>
+        </header>
+        <div class="g12" style="row-gap:28px;align-items:start">
+          <div style="grid-column:span 7" class="tbl-wrap">
+            <table class="tbl">
+              <thead><tr><th>Pattern</th><th>Spec</th></tr></thead>
+              <tbody>
+                <tr><td>Image reveal</td><td>Curtain wipe: clip-path from the bottom, 900ms, cubic-bezier(.22,1,.36,1)</td></tr>
+                <tr><td>Headline</td><td>Lines rise out of a mask, 90ms stagger</td></tr>
+                <tr><td>Copy</td><td>18px rise + fade, 650ms</td></tr>
+                <tr><td>Button press</td><td>150ms linear; moves 2px into its shadow, 4px on :active</td></tr>
+                <tr><td>Hover fill</td><td>Instant Kagaz → Haldi flip, 150ms</td></tr>
+                <tr><td>Image hover</td><td>1.03× scale inside the mat (overflow hidden)</td></tr>
+                <tr><td>Parallax</td><td>Matted photos only, 6–12% of viewport travel</td></tr>
+                <tr><td>Page turn</td><td>A Kagaz sheet wipes up over the page (380ms) and lifts off the next one; it names the plate being opened</td></tr>
+                <tr><td>Reduced motion</td><td>All of the above off; content shown immediately</td></tr>
+              </tbody>
+            </table>
+          </div>
+          <div style="grid-column:9 / span 4">
+            <figure class="mat demo-wipe"><div class="mat__win wipe is-in" id="demo-wipe"><img src="assets/img/three-frames.jpg" alt="Three Frames plate" loading="lazy"></div><figcaption class="mat__cap mono-s"><span>Wipe demo</span><span>900ms</span></figcaption></figure>
+            <button class="btn btn-secondary" type="button" style="margin-top:18px" id="replay">Replay the wipe</button>
+          </div>
+        </div>
+      </section>
+
+      <!-- ================================================= 07 RESPONSIVE -->
+      <section id="responsive" class="sys-block">
+        <header class="sec-head">
+          <span class="idx"><span class="deva">०७</span><span>/ 07</span></span>
+          <h2 class="display-s">Responsive</h2>
+          <p class="sec-meta mono-s muted">Recomposed per device, not shrunk.</p>
+        </header>
+        <div class="tbl-wrap">
+          <table class="tbl">
+            <thead><tr><th>Element</th><th>Desktop ≥ 1024</th><th>Tablet 768–1023</th><th>Mobile &lt; 768</th></tr></thead>
+            <tbody>
+              <tr><td>Nav</td><td>Mono links + button</td><td>Same</td><td>"Index" button → full-height paper sheet with Devanagari numerals</td></tr>
+              <tr><td>Hero</td><td>7/5 split, plate right</td><td>Copy full width, plate centred below</td><td>Stacked; CTAs stretch to full width</td></tr>
+              <tr><td>Selected plates</td><td>Sticky 4-col meta beside 8-col plate</td><td>Plate first, meta in two columns beneath</td><td>Plate first; wide crops become 4:3</td></tr>
+              <tr><td>Series</td><td>4 ruled columns</td><td>2 × 2</td><td>Stacked rows</td></tr>
+              <tr><td>Film strip</td><td>Drag + arrows</td><td>Swipe + arrows</td><td>Swipe; one frame and a peek (72vw)</td></tr>
+              <tr><td>Archive</td><td>4 columns</td><td>3 columns</td><td>2 columns; filters wrap into a grid</td></tr>
+              <tr><td>Plate page</td><td>Plate fits one screen, sticky spec</td><td>Spec moves under the plate</td><td>Same; prev/next stack</td></tr>
+              <tr><td>Type</td><td colspan="3">Fluid clamp() from 46px to 96px display; body 16–18px; mono never under 11px</td></tr>
+            </tbody>
+          </table>
+        </div>
+      </section>
+
+      <!-- ================================================= 08 RULES -->
+      <section id="rules" class="sys-block">
+        <header class="sec-head">
+          <span class="idx"><span class="deva">०८</span><span>/ 08</span></span>
+          <h2 class="display-s">House <em>rules</em></h2>
+          <p class="sec-meta mono-s muted">From §14 of the style guide.</p>
+        </header>
+        <div class="dd">
+          <div>
+            <h3>Do</h3>
+            <ul>
+              <li>Let Kagaz negative space breathe around bold elements.</li>
+              <li>Keep corners sharp (0px) and borders crisp (1.5px).</li>
+              <li>Use Sindoor and Acid Haldi sparingly, as sparks.</li>
+              <li>Use Devanagari numerals with editorial restraint.</li>
+              <li>Hold AA/AAA contrast; Haldi type only on Courtyard.</li>
+            </ul>
+          </div>
+          <div>
+            <h3>Don't</h3>
+            <ul>
+              <li>Crowd the page with stickers, starbursts or overlapping collage.</li>
+              <li>Use neon lime, hot pink or purple-blue SaaS gradients.</li>
+              <li>Use blurred shadows, glassmorphism or rounded cards.</li>
+              <li>Add mandalas, lotuses or tourist-brochure motifs.</li>
+              <li>Trade body-copy readability for an experimental face.</li>
+            </ul>
+          </div>
+        </div>
+      </section>
+
+    </div>
+  </div>
+</div>
+
+</main>
+
+<div class="trim trim--dark" role="presentation"></div>
+<footer class="footer on-dark">
+  <div class="wrap">
+    <div class="g12 footer__grid">
+      <div style="grid-column:span 5">
+        <p class="footer__sign" lang="hi">फिर मिलेंगे</p>
+        <p class="mono-s muted" style="margin-top:12px">phir milenge — see you again</p>
+      </div>
+      <div style="grid-column:7 / span 2">
+        <h3>Index</h3>
+        <ul class="mono-s">
+          <li><a href="archive.html">01 Archive</a></li>
+          <li><a href="about.html">02 About</a></li>
+          <li><a href="system.html">03 Colophon</a></li>
+          <li><a href="index.html#contact">04 Contact</a></li>
+        </ul>
+      </div>
+      <div style="grid-column:span 2">
+        <h3>Elsewhere</h3>
+        <ul class="mono-s">
+          <li><a href="#" data-social="instagram" rel="noopener">Instagram ↗</a></li>
+          <li><a href="#" data-social="pinterest" rel="noopener">Pinterest ↗</a></li>
+          <li><a href="#" data-social="behance" rel="noopener">Behance ↗</a></li>
+        </ul>
+      </div>
+      <div style="grid-column:span 2">
+        <h3>Local time</h3>
+        <p class="mono-s clock" data-ist>--:--:-- IST</p>
+        <p class="mono-s muted" style="margin-top:8px">India</p>
+      </div>
+    </div>
+    <div class="footer__base mono-s muted">
+      <span>© <span data-year>2026</span> Shreya Tiwari. All plates © the artist.</span>
+      <span>Set in Instrument Serif, Syne, Plus Jakarta Sans, JetBrains Mono &amp; Yatra One</span>
+    </div>
+  </div>
+</footer>
+
+<script src="js/works.js"></script>
+<script src="js/site.js"></script>
+<script>
+  /* specimen-only: replay the curtain wipe; demo filter buttons toggle */
+  document.getElementById('replay').addEventListener('click', function () {
+    var w = document.getElementById('demo-wipe');
+    w.classList.remove('is-in'); void w.offsetWidth;
+    requestAnimationFrame(function () { w.classList.add('is-in'); });
+  });
+  document.querySelectorAll('#components .filters').forEach(function (bar) {
+    bar.addEventListener('click', function (e) {
+      var b = e.target.closest('button'); if (!b) return;
+      bar.querySelectorAll('button').forEach(function (x) { x.setAttribute('aria-pressed', x === b); });
+    });
+  });
+</script>
+</body>
+</html>
