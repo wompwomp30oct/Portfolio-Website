@@ -1,0 +1,215 @@
+/* =====================================================================
+   MAXIMAL — a living Indian-maximalist world behind every page, plus
+   Shreya, the sprite companion. Loaded after kagaz.css; everything is
+   scoped to body.mx, so a page opts in with that class + js/maximal.js
+   (which builds the world and Shreya; pages only add torans/friezes).
+   Layers (back → front):
+     .mx-world  fixed, pointer-events none
+       paisley base (drifts) → glow → rangoli medallions (spin)
+       (scroll/cursor parallax, wrap around)
+       → falling marigolds & petals → occasional kite → vignette
+     main       content as paper sheets; torans / block-print band between
+     .mx-shreya the companion (fixed, below the nav)
+   ===================================================================== */
+:root{
+  --mx-crimson:#4A0C18; --mx-wine:#6B1325; --mx-vermilion:#D92B1C; --mx-marigold:#F2A007;
+  --mx-emerald:#0F6B4F; --mx-blue:#1F4FA8; --mx-magenta:#C2187A; --mx-earth:#8C5A2B;
+  --mx-gut: clamp(12px, 5vw, 88px);
+}
+html{ scroll-behavior:smooth; }
+body.mx{ background:var(--mx-crimson); }
+.mx main, .mx .footer, .mx .trim{ position:relative; z-index:1; }
+
+/* ---------- the world ---------- */
+.mx-world{ position:fixed; inset:0; z-index:0; overflow:hidden; pointer-events:none; contain:strict; }
+.mx-world > *{ position:absolute; }
+.mx-paisley{ inset:-80px; will-change:transform; }
+.mx-paisley__tile{
+  position:absolute; left:0; top:0; width:calc(100% + 368px); height:calc(100% + 654px);
+  background:url(../assets/maximal/paisley.webp) 0 0 / 368px 654px repeat;
+  animation:mxDrift 150s linear infinite;
+}
+@keyframes mxDrift{ to{ transform:translate3d(-368px,-654px,0); } }
+.mx-glow{
+  inset:0; mix-blend-mode:screen; opacity:.55;
+  background:
+    radial-gradient(55vmax 40vmax at 12% 18%, rgba(242,160,7,.30), transparent 60%),
+    radial-gradient(50vmax 45vmax at 88% 72%, rgba(194,24,122,.30), transparent 62%),
+    radial-gradient(60vmax 35vmax at 50% 108%, rgba(15,107,79,.45), transparent 60%),
+    radial-gradient(40vmax 30vmax at 92% 6%, rgba(31,79,168,.30), transparent 60%);
+  animation:mxBreathe 14s ease-in-out infinite alternate;
+}
+@keyframes mxBreathe{ to{ opacity:.85; } }
+.mx-med{ left:0; top:0; will-change:transform; }
+.mx-med svg{ display:block; width:100%; height:100%; animation:mxSpin var(--d,140s) linear infinite; }
+.mx-med.rev svg{ animation-direction:reverse; }
+@keyframes mxSpin{ to{ transform:rotate(360deg); } }
+
+/* falling marigolds and petals */
+.mx-fall{ top:0; left:var(--x); width:var(--s); height:var(--s); will-change:transform;
+  animation:mxFall var(--d,22s) ease-in-out var(--dl,0s) infinite; }
+.mx-fall svg{ display:block; width:100%; height:100%; animation:mxSpin var(--sd,10s) linear infinite; }
+@keyframes mxFall{
+  0%  { transform:translate3d(0,-12vh,0); }
+  25% { transform:translate3d(var(--sw),22vh,0); }
+  50% { transform:translate3d(calc(var(--sw) * -1),52vh,0); }
+  75% { transform:translate3d(var(--sw),82vh,0); }
+  100%{ transform:translate3d(0,115vh,0); }
+}
+
+/* a patang that crosses now and then */
+.mx-kite{ left:0; top:var(--ky,14vh); width:78px; opacity:0; }
+.mx-kite.fly{ animation:mxKite var(--kd,26s) linear forwards; }
+.mx-kite svg{ display:block; width:100%; overflow:visible; animation:mxKiteBob 2.6s ease-in-out infinite alternate; transform-origin:50% 20%; }
+@keyframes mxKite{
+  0%  { opacity:1; transform:translate3d(-14vw,10vh,0); }
+  50% { transform:translate3d(48vw,-3vh,0); }
+  100%{ opacity:1; transform:translate3d(112vw,6vh,0); }
+}
+@keyframes mxKiteBob{ from{ transform:rotate(-9deg) translateY(-6px); } to{ transform:rotate(7deg) translateY(6px); } }
+.mx-vignette{ inset:0; background:radial-gradient(ellipse at 50% 45%, transparent 52%, rgba(20,3,8,.62) 100%); }
+
+/* ---------- content as paper sheets over the world ----------
+   Sheets: a light section's .wrap, a page header's .wrap, and the
+   Colophon body (.wrap.section on one element). Their parents turn
+   transparent so the world shows in the gaps between them. */
+.mx .section:not(.wrap), .mx .phead{ background:transparent !important; border:0 !important; padding-block:clamp(18px,2.6vw,36px) !important; }
+.mx .section.blueprint::before{ display:none; }
+.mx .section:not(.on-dark):not(.wrap) > .wrap, .mx .phead > .wrap, .mx .wrap.section{
+  position:relative;
+  width:calc(100% - 2 * var(--mx-gut));
+  max-width:calc(var(--max-width) - 2 * var(--mx-gut));
+  padding-block:clamp(44px,5.6vw,92px);
+  background:var(--bg-kagaz);
+  border:1.5px solid var(--ink-kajal);
+  box-shadow:10px 12px 0 rgba(18,4,8,.55);
+}
+.mx .section.on-parchment > .wrap{ background:var(--bg-parchment); }
+.mx .phead > .wrap{ padding-block:clamp(36px,4.6vw,76px); }
+.mx .wrap.section{ margin-block:clamp(18px,2.6vw,36px); }
+/* plate page: the prev/next bar becomes a narrow sheet of its own */
+.mx .pn{
+  position:relative; width:calc(100% - 2 * var(--mx-gut)); max-width:calc(var(--max-width) - 2 * var(--mx-gut));
+  margin:clamp(18px,2.6vw,36px) auto; background:var(--bg-kagaz); border:1.5px solid var(--ink-kajal);
+  box-shadow:10px 12px 0 rgba(18,4,8,.55);
+}
+/* plate page: the dark plate header, framed like the night band */
+.mx .cs-hero{ box-shadow:0 0 0 6px rgba(242,160,7,.18), 0 14px 0 rgba(18,4,8,.35); border-bottom:1.5px solid var(--ink-kajal); }
+/* inner brass rule + marigold studs on all four corners */
+.mx .section:not(.on-dark):not(.wrap) > .wrap::after, .mx .phead > .wrap::after, .mx .wrap.section::after{
+  content:""; position:absolute; inset:9px; border:1px solid var(--rule-brass); pointer-events:none;
+}
+.mx .section:not(.on-dark):not(.wrap) > .wrap::before, .mx .phead > .wrap::before, .mx .wrap.section::before{
+  content:""; position:absolute; inset:-13px; pointer-events:none; z-index:2;
+  --stud:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cg fill='%23D92B1C' stroke='%23141210' stroke-width='.8'%3E%3Ccircle cx='12' cy='4.6' r='3.4'/%3E%3Ccircle cx='12' cy='19.4' r='3.4'/%3E%3Ccircle cx='4.6' cy='12' r='3.4'/%3E%3Ccircle cx='19.4' cy='12' r='3.4'/%3E%3C/g%3E%3Ccircle cx='12' cy='12' r='5.4' fill='%23F2A007' stroke='%23141210' stroke-width='.8'/%3E%3Ccircle cx='12' cy='12' r='2' fill='%23141210'/%3E%3C/svg%3E");
+  background:var(--stud) 0 0 / 26px no-repeat, var(--stud) 100% 0 / 26px no-repeat,
+             var(--stud) 0 100% / 26px no-repeat, var(--stud) 100% 100% / 26px no-repeat;
+  transition:transform .6s var(--ease-editorial);
+}
+.mx .section:not(.on-dark):not(.wrap) > .wrap:hover::before, .mx .phead > .wrap:hover::before, .mx .wrap.section:hover::before{ transform:rotate(.001deg) scale(1.012); }
+/* sheets settle into place as they arrive */
+.mx .mx-sheet{ opacity:0; transform:translate3d(0,34px,0) rotate(-.35deg); }
+.mx .mx-sheet.is-in{ opacity:1; transform:none; transition:opacity .9s var(--ease-editorial), transform 1.1s var(--ease-editorial); }
+
+/* hero: the world shows through; a crimson scrim keeps the copy legible */
+.mx .hero{
+  background:linear-gradient(90deg, rgba(26,5,11,.95) 0%, rgba(26,5,11,.88) 40%, rgba(26,5,11,.42) 66%, rgba(26,5,11,.12) 100%) !important;
+}
+.mx .hero__strip{ border-top-color:rgba(242,160,7,.45); }
+/* night band stays dark, framed like a lit window */
+.mx .section.on-dark{
+  background:rgba(9,30,24,.95) !important;
+  border-block:1.5px solid var(--ink-kajal) !important;
+  box-shadow:0 0 0 6px rgba(242,160,7,.18), 0 14px 0 rgba(18,4,8,.35);
+  padding-block:clamp(56px,7vw,96px) !important;
+}
+/* the existing jaali trims now run like a printing press */
+.mx .trim{ animation:mxTrim 16s linear infinite; }
+@keyframes mxTrim{ to{ background-position-x:200px; } }
+
+/* ---------- section transitions ---------- */
+/* toran: kalava rope, swaying marigold strings, mango leaves */
+.mx-toran{ position:relative; z-index:1; height:150px; margin-block:-4px; pointer-events:none; overflow:hidden; }
+.mx-toran__rope{
+  position:absolute; left:0; right:0; top:12px; height:8px; z-index:2;
+  background:repeating-linear-gradient(-55deg, var(--mx-vermilion) 0 5px, var(--mx-marigold) 5px 10px, #F6EFDD 10px 12px);
+  border-block:1px solid rgba(18,4,8,.7); box-shadow:0 3px 0 rgba(18,4,8,.35);
+}
+.mx-toran__str{ position:absolute; top:16px; width:22px; transform-origin:50% 0; animation:mxSway var(--d,4s) ease-in-out var(--dl,0s) infinite alternate; }
+.mx-toran__str svg{ display:block; width:22px; overflow:visible; }
+.mx-toran__leaf{ position:absolute; top:13px; width:16px; transform-origin:50% 0; animation:mxSway var(--d,5s) ease-in-out var(--dl,0s) infinite alternate; }
+@keyframes mxSway{ from{ transform:rotate(calc(var(--a,5deg) * -1)); } to{ transform:rotate(var(--a,5deg)); } }
+/* block-print band: drawn paisley + lotus bud procession (no images) */
+.mx-frieze{
+  position:relative; z-index:1; height:76px; margin-block:22px; overflow:hidden;
+  background:#EFE6CF; border-block:1.5px solid var(--ink-kajal); box-shadow:0 10px 0 rgba(18,4,8,.4);
+}
+.mx-frieze__run{
+  position:absolute; top:0; bottom:0; left:0; width:calc(100% + var(--tw,120px));
+  background:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='120' height='76' viewBox='0 0 120 76'%3E%3Crect width='120' height='76' fill='%23EFE6CF'/%3E%3Cg fill='%231F4FA8'%3E%3Cpath d='M4 8l6-5 6 5-6 5z'/%3E%3Cpath d='M24 8l6-5 6 5-6 5z'/%3E%3Cpath d='M44 8l6-5 6 5-6 5z'/%3E%3Cpath d='M64 8l6-5 6 5-6 5z'/%3E%3Cpath d='M84 8l6-5 6 5-6 5z'/%3E%3Cpath d='M104 8l6-5 6 5-6 5z'/%3E%3C/g%3E%3Cpath d='M0 16.5H120M0 58.5H120' stroke='%23141210'/%3E%3Cpath d='M32 54C16 52 18 30 34 24C44 20 50 30 44 36C40 40 34 38 36 33' fill='%23D92B1C' stroke='%23141210' stroke-width='1.2'/%3E%3Ccircle cx='32' cy='44' r='4' fill='%23F2A007' stroke='%23141210' stroke-width='.8'/%3E%3Cpath d='M90 24C98 32 98 44 90 50C82 44 82 32 90 24Z' fill='%23C2187A' stroke='%23141210' stroke-width='1.2'/%3E%3Cpath d='M79 48C83 40 87 44 90 50M101 48C97 40 93 44 90 50' fill='none' stroke='%230F6B4F' stroke-width='2.2'/%3E%3Ccircle cx='62' cy='37' r='2' fill='%230F6B4F'/%3E%3Ccircle cx='2' cy='37' r='2' fill='%230F6B4F'/%3E%3Cpath d='M0 61a15 12 0 0 0 30 0a15 12 0 0 0 30 0a15 12 0 0 0 30 0a15 12 0 0 0 30 0' fill='none' stroke='%237A5A2E' stroke-width='3'/%3E%3Cg fill='%237A5A2E'%3E%3Ccircle cx='15' cy='71' r='2.6'/%3E%3Ccircle cx='45' cy='71' r='2.6'/%3E%3Ccircle cx='75' cy='71' r='2.6'/%3E%3Ccircle cx='105' cy='71' r='2.6'/%3E%3C/g%3E%3C/svg%3E") 0 0 / auto 100% repeat-x;
+  animation:mxFrieze 7s linear infinite; will-change:transform;
+}
+@keyframes mxFrieze{ to{ transform:translate3d(calc(var(--tw,120px) * -1),0,0); } }
+
+/* ---------- Shreya ---------- */
+.mx-shreya{ position:fixed; left:0; top:0; z-index:760; pointer-events:none; will-change:transform; }
+.mx-shreya__cv{ position:absolute; inset:0; width:100%; height:100%; transform-origin:50% 100%; }
+.mx-shreya__btn{
+  position:absolute; left:30%; width:40%; bottom:0; height:92%;
+  padding:0; border:0; background:transparent; cursor:pointer; pointer-events:auto; border-radius:40% 40% 8px 8px;
+}
+.mx-shreya__btn:focus-visible{ outline:2px dashed var(--mx-marigold); outline-offset:4px; }
+.mx-shreya__bubble{
+  position:absolute; width:86px; padding:6px 6px 0; left:0; bottom:100%;
+  background:var(--bg-kagaz); border:1.5px solid var(--ink-kajal); border-radius:43px 43px 6px 6px;
+  box-shadow:4px 4px 0 rgba(18,4,8,.55); text-align:center;
+  opacity:0; transform:translateY(8px) scale(.85); transform-origin:50% 100%;
+  transition:opacity .22s linear, transform .35s var(--ease-editorial);
+}
+.mx-shreya__bubble.on{ opacity:1; transform:none; }
+.mx-shreya__bubble::after{ /* tail */
+  content:""; position:absolute; left:var(--tail,50%); bottom:-8px; width:12px; height:12px; margin-left:-6px;
+  background:var(--bg-kagaz); border-right:1.5px solid var(--ink-kajal); border-bottom:1.5px solid var(--ink-kajal); transform:rotate(45deg);
+}
+.mx-shreya__bubble.below{ transform-origin:50% 0; }
+.mx-shreya__bubble.below::after{ bottom:auto; top:-8px; transform:rotate(225deg); }
+.mx-shreya__bubble canvas{ display:block; width:72px; height:72px; margin:0 auto; border-radius:36px 36px 2px 2px; background:radial-gradient(circle at 50% 60%, #F7E3B4, #EBC77E); }
+.mx-shreya__say{
+  display:block; margin:5px -6px 0; padding:4px 4px 3px; background:var(--accent-sindoor); color:var(--ink-cream);
+  font:500 9.5px/1.15 var(--font-mono); letter-spacing:.04em; text-transform:uppercase; border-radius:0 0 5px 5px;
+}
+.mx-rug{ position:fixed; left:0; top:0; z-index:759; width:60px; height:18px; pointer-events:none; opacity:0; transition:opacity .3s linear; will-change:transform; }
+.mx-rug.on{ opacity:1; }
+.mx-rug svg{ display:block; width:100%; height:100%; animation:mxRug 1.8s ease-in-out infinite alternate; }
+@keyframes mxRug{ from{ transform:translateY(-1px) skewX(-4deg); } to{ transform:translateY(2px) skewX(4deg); } }
+/* grab, drag, drop: the hit area takes touches too (only her body) */
+.mx-shreya__btn{ touch-action:none; cursor:grab; -webkit-user-select:none; user-select:none; -webkit-touch-callout:none; }
+html.mx-dragging, html.mx-dragging *{ cursor:grabbing !important; -webkit-user-select:none !important; user-select:none !important; }
+html.mx-dragging .mx-shreya{ z-index:790; }
+/* seated inside the lotus she scrolls with the hero, between back and front petals */
+.mx-shreya.is-seated{ position:absolute; left:0; top:0; z-index:auto; }
+.mx-shreya.is-hidden{ opacity:0; }
+.mx-shreya.is-pop .mx-shreya__cv{ animation:mxPop .8s var(--ease-editorial) both; }
+@keyframes mxPop{ 0%{ opacity:0; transform:scale(.4) translateY(18px); filter:brightness(2.4); } 60%{ opacity:1; filter:brightness(1.4); } 100%{ transform:none; filter:none; } }
+/* pixel icons that float up from her laptop */
+.mx-pix{ position:absolute; width:12px; height:12px; pointer-events:none; animation:mxPix 1.6s var(--ease-editorial) forwards; filter:drop-shadow(1px 1px 0 #141210); }
+.mx-pix svg{ display:block; width:100%; height:100%; }
+@keyframes mxPix{ 0%{ opacity:0; transform:translate(0,6px) scale(.6); } 18%{ opacity:1; transform:translate(calc(var(--dx) * .3),-6px) scale(1); } 100%{ opacity:0; transform:translate(var(--dx),-46px) scale(1); } }
+.mx-burst{ position:fixed; left:0; top:0; z-index:761; width:14px; height:14px; pointer-events:none; animation:mxBurst .9s var(--ease-editorial) forwards; }
+@keyframes mxBurst{ to{ transform:translate3d(var(--bx),var(--by),0) rotate(var(--br)); opacity:0; } }
+
+@media (max-width:1023px){
+  .mx .hero{ background:linear-gradient(180deg, rgba(26,5,11,.93) 0%, rgba(26,5,11,.86) 62%, rgba(26,5,11,.5) 100%) !important; }
+}
+@media (max-width:767px){
+  .mx-toran{ height:132px; }
+  .mx-frieze{ height:58px; }
+  .mx .section:not(.on-dark):not(.wrap) > .wrap, .mx .phead > .wrap, .mx .wrap.section, .mx .pn{ box-shadow:6px 8px 0 rgba(18,4,8,.55); }
+  .mx .section:not(.on-dark):not(.wrap) > .wrap::before, .mx .phead > .wrap::before, .mx .wrap.section::before{ inset:-10px; background-size:20px; }
+}
+@media (prefers-reduced-motion: reduce){
+  html{ scroll-behavior:auto; }
+  .mx-world *, .mx-toran *, .mx-frieze__run, .mx .trim, .mx-rug svg{ animation:none !important; }
+  .mx-kite{ display:none; }
+  .mx .mx-sheet{ opacity:1; transform:none; }
+}

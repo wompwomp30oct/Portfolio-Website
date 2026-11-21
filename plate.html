@@ -11,9 +11,11 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=JetBrains+Mono:wght@400;500&family=Plus+Jakarta+Sans:wght@400;500;600&family=Syne:wght@700;800&family=Yatra+One&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="css/kagaz.css">
+<link rel="stylesheet" href="css/maximal.css">
+<link rel="preload" as="image" href="assets/maximal/shreya-sprites-keyed.webp">
 <script>document.documentElement.classList.add('js')</script>
 </head>
-<body>
+<body class="mx">
 <a class="skip" href="#main">Skip to content</a>
 <div class="curtain" aria-hidden="true"><div class="curtain__label"><span class="deva">श्रे</span><span class="mono">Opening plate…</span></div></div>
 
@@ -57,13 +59,15 @@
   </div>
 </section>
 
+<div class="mx-frieze" aria-hidden="true" data-ledge><div class="mx-frieze__run"></div></div>
+
 <!-- DETAILS — Kagaz. Narrow side-note column + three 3:1 film-strip
      crops of the same plate (top / middle / bottom), echoing Aankhein. -->
 <section class="section turn">
   <div class="wrap">
     <header class="sec-head">
       <span class="idx"><span class="deva">०१</span><span>/ 01</span></span>
-      <h2 class="display-s">Up <em>close</em></h2>
+      <h2 class="display-s" data-shreya-says="surprised|Look closer!">Up <em>close</em></h2>
       <p class="sec-meta mono-s muted">Three horizontal crops, read top to bottom.</p>
     </header>
     <div class="g12 details">
@@ -79,12 +83,14 @@
 <!-- PREVIOUS / NEXT — oversized serif titles, Haldi fill on hover -->
 <nav class="pn" data-cs-pn aria-label="Previous and next plates"></nav>
 
+<div class="mx-toran" aria-hidden="true"><div class="mx-toran__rope" data-ledge></div></div>
+
 <!-- MORE FROM THE SERIES — duotone cards that snap to colour -->
 <section class="section section--tight">
   <div class="wrap">
     <header class="sec-head">
       <span class="idx"><span class="deva">०२</span><span>/ 02</span></span>
-      <h2 class="display-s" data-cs-related-title>More from the series</h2>
+      <h2 class="display-s" data-cs-related-title data-shreya-says="hearts|More like this">More from the series</h2>
       <a class="sec-meta link" href="archive.html">Whole archive <span class="arr">→</span></a>
     </header>
     <div class="related" data-cs-related></div>
@@ -134,5 +140,6 @@
 
 <script src="js/works.js"></script>
 <script src="js/site.js"></script>
+<script src="js/maximal.js"></script>
 </body>
 </html>

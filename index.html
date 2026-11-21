@@ -3,8 +3,8 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Shreya Tiwari — Kagaz &amp; Chiaroscuro · an archive of edits</title>
-<meta name="description" content="Collage, poster type and night photographs made out of everyday India. Twenty-nine plates, 2023–2026.">
+<title>Shreya Tiwari — product, projects, brand &amp; content</title>
+<meta name="description" content="Shreya Tiwari works across product management, project coordination, client communication, marketing and content, and keeps an archive of collage, poster type and night photography.">
 <meta name="theme-color" content="#0D261F">
 <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' fill='%23141210'/%3E%3Crect x='7' y='7' width='18' height='18' fill='none' stroke='%23E5A024' stroke-width='2'/%3E%3Ccircle cx='16' cy='16' r='4' fill='%23D92B1C'/%3E%3C/svg%3E">
 <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -13,246 +13,24 @@
 <link rel="stylesheet" href="css/kagaz.css">
 <script>document.documentElement.classList.add('js')</script>
 <link rel="preload" as="image" href="assets/maximal/shreya-sprites-keyed.webp">
-<style>
-/* =====================================================================
-   HOME ONLY — "Maximal" layer: a living Indian-maximalist world behind
-   the existing content, plus Shreya, the sprite companion.
-   Everything here is scoped to body.mx so the other pages are untouched.
-   Layers (back → front):
-     .mx-world  fixed, pointer-events none
-       paisley base (drifts) → glow → rangoli medallions (spin)
-       → collage cut-outs (bob + scroll/cursor parallax, wrap around)
-       → falling marigolds & petals → occasional kite → vignette
-     main       content as paper sheets; torans / elephant frieze between
-     .mx-shreya the companion (fixed, below the nav)
-   ===================================================================== */
-:root{
-  --mx-crimson:#4A0C18; --mx-wine:#6B1325; --mx-vermilion:#D92B1C; --mx-marigold:#F2A007;
-  --mx-emerald:#0F6B4F; --mx-blue:#1F4FA8; --mx-magenta:#C2187A; --mx-earth:#8C5A2B;
-  --mx-gut: clamp(12px, 5vw, 88px);
-}
-html{ scroll-behavior:smooth; }
-body.mx{ background:var(--mx-crimson); }
-.mx main, .mx .footer, .mx .trim{ position:relative; z-index:1; }
-
-/* ---------- the world ---------- */
-.mx-world{ position:fixed; inset:0; z-index:0; overflow:hidden; pointer-events:none; contain:strict; }
-.mx-world > *{ position:absolute; }
-.mx-paisley{ inset:-80px; will-change:transform; }
-.mx-paisley__tile{
-  position:absolute; left:0; top:0; width:calc(100% + 368px); height:calc(100% + 654px);
-  background:url(assets/maximal/paisley.webp) 0 0 / 368px 654px repeat;
-  animation:mxDrift 150s linear infinite;
-}
-@keyframes mxDrift{ to{ transform:translate3d(-368px,-654px,0); } }
-.mx-glow{
-  inset:0; mix-blend-mode:screen; opacity:.55;
-  background:
-    radial-gradient(55vmax 40vmax at 12% 18%, rgba(242,160,7,.30), transparent 60%),
-    radial-gradient(50vmax 45vmax at 88% 72%, rgba(194,24,122,.30), transparent 62%),
-    radial-gradient(60vmax 35vmax at 50% 108%, rgba(15,107,79,.45), transparent 60%),
-    radial-gradient(40vmax 30vmax at 92% 6%, rgba(31,79,168,.30), transparent 60%);
-  animation:mxBreathe 14s ease-in-out infinite alternate;
-}
-@keyframes mxBreathe{ to{ opacity:.85; } }
-.mx-med, .mx-scrap{ left:0; top:0; will-change:transform; }
-.mx-med svg{ display:block; width:100%; height:100%; animation:mxSpin var(--d,140s) linear infinite; }
-.mx-med.rev svg{ animation-direction:reverse; }
-@keyframes mxSpin{ to{ transform:rotate(360deg); } }
-
-/* torn-paper cut-outs from the collage */
-.mx-scrap__bob{ position:absolute; inset:0; animation:mxBob var(--d,12s) ease-in-out var(--dl,0s) infinite alternate; }
-@keyframes mxBob{
-  from{ transform:translateY(-9px) rotate(calc(var(--r) - 2.2deg)); }
-  to  { transform:translateY( 9px) rotate(calc(var(--r) + 2.2deg)); }
-}
-.mx-scrap__shadow, .mx-scrap__paper{ position:absolute; inset:0; }
-.mx-scrap__shadow{ background:rgba(18,4,8,.5); transform:translate(7px,9px); }
-.mx-scrap__paper{ background:#F6EFDD; padding:7px; }
-.mx-scrap__img{ width:100%; height:100%; background:url(assets/maximal/collage.webp) no-repeat; }
-.mx-scrap--spin .mx-scrap__img{ border-radius:50%; animation:mxSpin 90s linear infinite; }
-
-/* falling marigolds and petals */
-.mx-fall{ top:0; left:var(--x); width:var(--s); height:var(--s); will-change:transform;
-  animation:mxFall var(--d,22s) ease-in-out var(--dl,0s) infinite; }
-.mx-fall svg{ display:block; width:100%; height:100%; animation:mxSpin var(--sd,10s) linear infinite; }
-@keyframes mxFall{
-  0%  { transform:translate3d(0,-12vh,0); }
-  25% { transform:translate3d(var(--sw),22vh,0); }
-  50% { transform:translate3d(calc(var(--sw) * -1),52vh,0); }
-  75% { transform:translate3d(var(--sw),82vh,0); }
-  100%{ transform:translate3d(0,115vh,0); }
-}
-
-/* a patang that crosses now and then */
-.mx-kite{ left:0; top:var(--ky,14vh); width:78px; opacity:0; }
-.mx-kite.fly{ animation:mxKite var(--kd,26s) linear forwards; }
-.mx-kite svg{ display:block; width:100%; overflow:visible; animation:mxKiteBob 2.6s ease-in-out infinite alternate; transform-origin:50% 20%; }
-@keyframes mxKite{
-  0%  { opacity:1; transform:translate3d(-14vw,10vh,0); }
-  50% { transform:translate3d(48vw,-3vh,0); }
-  100%{ opacity:1; transform:translate3d(112vw,6vh,0); }
-}
-@keyframes mxKiteBob{ from{ transform:rotate(-9deg) translateY(-6px); } to{ transform:rotate(7deg) translateY(6px); } }
-.mx-vignette{ inset:0; background:radial-gradient(ellipse at 50% 45%, transparent 52%, rgba(20,3,8,.62) 100%); }
-
-/* ---------- content as paper sheets over the world ---------- */
-.mx .section{ background:transparent !important; border:0 !important; padding-block:clamp(18px,2.6vw,36px) !important; }
-.mx .section.blueprint::before{ display:none; }
-.mx .section:not(.on-dark) > .wrap{
-  position:relative;
-  width:calc(100% - 2 * var(--mx-gut));
-  max-width:calc(var(--max-width) - 2 * var(--mx-gut));
-  padding-block:clamp(44px,5.6vw,92px);
-  background:var(--bg-kagaz);
-  border:1.5px solid var(--ink-kajal);
-  box-shadow:10px 12px 0 rgba(18,4,8,.55);
-}
-.mx .section.on-parchment > .wrap{ background:var(--bg-parchment); }
-/* inner brass rule + marigold studs on all four corners */
-.mx .section:not(.on-dark) > .wrap::after{
-  content:""; position:absolute; inset:9px; border:1px solid var(--rule-brass); pointer-events:none;
-}
-.mx .section:not(.on-dark) > .wrap::before{
-  content:""; position:absolute; inset:-13px; pointer-events:none; z-index:2;
-  --stud:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cg fill='%23D92B1C' stroke='%23141210' stroke-width='.8'%3E%3Ccircle cx='12' cy='4.6' r='3.4'/%3E%3Ccircle cx='12' cy='19.4' r='3.4'/%3E%3Ccircle cx='4.6' cy='12' r='3.4'/%3E%3Ccircle cx='19.4' cy='12' r='3.4'/%3E%3C/g%3E%3Ccircle cx='12' cy='12' r='5.4' fill='%23F2A007' stroke='%23141210' stroke-width='.8'/%3E%3Ccircle cx='12' cy='12' r='2' fill='%23141210'/%3E%3C/svg%3E");
-  background:var(--stud) 0 0 / 26px no-repeat, var(--stud) 100% 0 / 26px no-repeat,
-             var(--stud) 0 100% / 26px no-repeat, var(--stud) 100% 100% / 26px no-repeat;
-  transition:transform .6s var(--ease-editorial);
-}
-.mx .section:not(.on-dark) > .wrap:hover::before{ transform:rotate(.001deg) scale(1.012); }
-/* sheets settle into place as they arrive */
-.mx .mx-sheet{ opacity:0; transform:translate3d(0,34px,0) rotate(-.35deg); }
-.mx .mx-sheet.is-in{ opacity:1; transform:none; transition:opacity .9s var(--ease-editorial), transform 1.1s var(--ease-editorial); }
-
-/* hero: the world shows through; a crimson scrim keeps the copy legible */
-.mx .hero{
-  background:linear-gradient(90deg, rgba(26,5,11,.95) 0%, rgba(26,5,11,.88) 40%, rgba(26,5,11,.42) 66%, rgba(26,5,11,.12) 100%) !important;
-}
-.mx .hero__strip{ border-top-color:rgba(242,160,7,.45); }
-/* night band stays dark, framed like a lit window */
-.mx .section.on-dark{
-  background:rgba(9,30,24,.95) !important;
-  border-block:1.5px solid var(--ink-kajal) !important;
-  box-shadow:0 0 0 6px rgba(242,160,7,.18), 0 14px 0 rgba(18,4,8,.35);
-  padding-block:clamp(56px,7vw,96px) !important;
-}
-/* the existing jaali trims now run like a printing press */
-.mx .trim{ animation:mxTrim 16s linear infinite; }
-@keyframes mxTrim{ to{ background-position-x:200px; } }
-
-/* ---------- section transitions ---------- */
-/* toran: kalava rope, swaying marigold strings, mango leaves */
-.mx-toran{ position:relative; z-index:1; height:150px; margin-block:-4px; pointer-events:none; overflow:hidden; }
-.mx-toran__rope{
-  position:absolute; left:0; right:0; top:12px; height:8px; z-index:2;
-  background:repeating-linear-gradient(-55deg, var(--mx-vermilion) 0 5px, var(--mx-marigold) 5px 10px, #F6EFDD 10px 12px);
-  border-block:1px solid rgba(18,4,8,.7); box-shadow:0 3px 0 rgba(18,4,8,.35);
-}
-.mx-toran__str{ position:absolute; top:16px; width:22px; transform-origin:50% 0; animation:mxSway var(--d,4s) ease-in-out var(--dl,0s) infinite alternate; }
-.mx-toran__str svg{ display:block; width:22px; overflow:visible; }
-.mx-toran__leaf{ position:absolute; top:13px; width:16px; transform-origin:50% 0; animation:mxSway var(--d,5s) ease-in-out var(--dl,0s) infinite alternate; }
-@keyframes mxSway{ from{ transform:rotate(calc(var(--a,5deg) * -1)); } to{ transform:rotate(var(--a,5deg)); } }
-/* elephant procession cut from the collage border */
-.mx-frieze{
-  position:relative; z-index:1; height:76px; margin-block:22px; overflow:hidden;
-  background:#EFE6CF; border-block:1.5px solid var(--ink-kajal); box-shadow:0 10px 0 rgba(18,4,8,.4);
-}
-.mx-frieze__run{
-  position:absolute; top:0; bottom:0; left:0; width:calc(100% + var(--tw,116px));
-  background:url(assets/maximal/frieze-tile.png) 0 0 / auto 100% repeat-x;
-  animation:mxFrieze 7s linear infinite; will-change:transform;
-}
-@keyframes mxFrieze{ to{ transform:translate3d(calc(var(--tw,116px) * -1),0,0); } }
-
-/* ---------- Shreya ---------- */
-.mx-shreya{ position:fixed; left:0; top:0; z-index:760; pointer-events:none; will-change:transform; }
-.mx-shreya__cv{ position:absolute; inset:0; width:100%; height:100%; transform-origin:50% 100%; }
-.mx-shreya__btn{
-  position:absolute; left:30%; width:40%; bottom:0; height:92%;
-  padding:0; border:0; background:transparent; cursor:pointer; pointer-events:auto; border-radius:40% 40% 8px 8px;
-}
-.mx-shreya__btn:focus-visible{ outline:2px dashed var(--mx-marigold); outline-offset:4px; }
-.mx-shreya__bubble{
-  position:absolute; width:86px; padding:6px 6px 0; left:0; bottom:100%;
-  background:var(--bg-kagaz); border:1.5px solid var(--ink-kajal); border-radius:43px 43px 6px 6px;
-  box-shadow:4px 4px 0 rgba(18,4,8,.55); text-align:center;
-  opacity:0; transform:translateY(8px) scale(.85); transform-origin:50% 100%;
-  transition:opacity .22s linear, transform .35s var(--ease-editorial);
-}
-.mx-shreya__bubble.on{ opacity:1; transform:none; }
-.mx-shreya__bubble::after{ /* tail */
-  content:""; position:absolute; left:var(--tail,50%); bottom:-8px; width:12px; height:12px; margin-left:-6px;
-  background:var(--bg-kagaz); border-right:1.5px solid var(--ink-kajal); border-bottom:1.5px solid var(--ink-kajal); transform:rotate(45deg);
-}
-.mx-shreya__bubble.below{ transform-origin:50% 0; }
-.mx-shreya__bubble.below::after{ bottom:auto; top:-8px; transform:rotate(225deg); }
-.mx-shreya__bubble canvas{ display:block; width:72px; height:72px; margin:0 auto; border-radius:36px 36px 2px 2px; background:radial-gradient(circle at 50% 60%, #F7E3B4, #EBC77E); }
-.mx-shreya__say{
-  display:block; margin:5px -6px 0; padding:4px 4px 3px; background:var(--accent-sindoor); color:var(--ink-cream);
-  font:500 9.5px/1.15 var(--font-mono); letter-spacing:.04em; text-transform:uppercase; border-radius:0 0 5px 5px;
-}
-.mx-rug{ position:fixed; left:0; top:0; z-index:759; width:60px; height:18px; pointer-events:none; opacity:0; transition:opacity .3s linear; will-change:transform; }
-.mx-rug.on{ opacity:1; }
-.mx-rug svg{ display:block; width:100%; height:100%; animation:mxRug 1.8s ease-in-out infinite alternate; }
-@keyframes mxRug{ from{ transform:translateY(-1px) skewX(-4deg); } to{ transform:translateY(2px) skewX(4deg); } }
-.mx-burst{ position:fixed; left:0; top:0; z-index:761; width:14px; height:14px; pointer-events:none; animation:mxBurst .9s var(--ease-editorial) forwards; }
-@keyframes mxBurst{ to{ transform:translate3d(var(--bx),var(--by),0) rotate(var(--br)); opacity:0; } }
-
-@media (max-width:1023px){
-  .mx .hero{ background:linear-gradient(180deg, rgba(26,5,11,.93) 0%, rgba(26,5,11,.86) 62%, rgba(26,5,11,.5) 100%) !important; }
-}
-@media (max-width:767px){
-  .mx-toran{ height:132px; }
-  .mx-frieze{ height:58px; }
-  .mx .section:not(.on-dark) > .wrap{ box-shadow:6px 8px 0 rgba(18,4,8,.55); }
-  .mx .section:not(.on-dark) > .wrap::before{ inset:-10px; background-size:20px; }
-}
-@media (prefers-reduced-motion: reduce){
-  html{ scroll-behavior:auto; }
-  .mx-world *, .mx-toran *, .mx-frieze__run, .mx .trim, .mx-rug svg{ animation:none !important; }
-  .mx-kite{ display:none; }
-  .mx .mx-sheet{ opacity:1; transform:none; }
-}
-</style>
+<link rel="stylesheet" href="css/maximal.css">
+<link rel="stylesheet" href="css/home.css">
+<script>
+/* first visit only: the lotus opening (js/home.js). Never with reduced motion or a #link;
+   a safety timer releases the page even if a script fails. */
+(function () {
+  try {
+    if (localStorage.getItem('kz-lotus-seen') || location.hash || matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+    document.documentElement.classList.add('mx-intro');
+    setTimeout(function () { document.documentElement.classList.remove('mx-intro', 'mx-intro-out'); }, 12000);
+  } catch (e) {}
+})();
+</script>
 </head>
 <body class="mx">
 <a class="skip" href="#main">Skip to content</a>
 <div class="curtain" aria-hidden="true"><div class="curtain__label"><span class="deva">श्रे</span><span class="mono">Kagaz &amp; Chiaroscuro</span></div></div>
 
-<!-- ============================================================ MAXIMAL WORLD
-     Fixed, decorative, behind everything. Cut-outs, medallions and falling
-     flowers are added by the script at the end of this file. -->
-<svg width="0" height="0" style="position:absolute" aria-hidden="true" focusable="false">
-  <defs>
-    <symbol id="mx-mari" viewBox="-10 -10 20 20">
-      <g fill="#E46A0C" stroke="#7A3300" stroke-width=".35"><circle cx="0" cy="-6.3" r="3"/><circle cx="3.15" cy="-5.46" r="3"/><circle cx="5.46" cy="-3.15" r="3"/><circle cx="6.3" cy="0" r="3"/><circle cx="5.46" cy="3.15" r="3"/><circle cx="3.15" cy="5.46" r="3"/><circle cx="0" cy="6.3" r="3"/><circle cx="-3.15" cy="5.46" r="3"/><circle cx="-5.46" cy="3.15" r="3"/><circle cx="-6.3" cy="0" r="3"/><circle cx="-5.46" cy="-3.15" r="3"/><circle cx="-3.15" cy="-5.46" r="3"/></g>
-      <g fill="#F7A21B" stroke="#9A4A00" stroke-width=".3"><circle cx="0" cy="-3.5" r="2.5"/><circle cx="3.03" cy="-1.75" r="2.5"/><circle cx="3.03" cy="1.75" r="2.5"/><circle cx="0" cy="3.5" r="2.5"/><circle cx="-3.03" cy="1.75" r="2.5"/><circle cx="-3.03" cy="-1.75" r="2.5"/></g>
-      <circle r="2.3" fill="#FFC93C" stroke="#9A4A00" stroke-width=".3"/>
-    </symbol>
-    <symbol id="mx-mari-y" viewBox="-10 -10 20 20">
-      <g fill="#F2B600" stroke="#7A5200" stroke-width=".35"><circle cx="0" cy="-6.3" r="3"/><circle cx="3.15" cy="-5.46" r="3"/><circle cx="5.46" cy="-3.15" r="3"/><circle cx="6.3" cy="0" r="3"/><circle cx="5.46" cy="3.15" r="3"/><circle cx="3.15" cy="5.46" r="3"/><circle cx="0" cy="6.3" r="3"/><circle cx="-3.15" cy="5.46" r="3"/><circle cx="-5.46" cy="3.15" r="3"/><circle cx="-6.3" cy="0" r="3"/><circle cx="-5.46" cy="-3.15" r="3"/><circle cx="-3.15" cy="-5.46" r="3"/></g>
-      <g fill="#FFD84D" stroke="#9A6A00" stroke-width=".3"><circle cx="0" cy="-3.5" r="2.5"/><circle cx="3.03" cy="-1.75" r="2.5"/><circle cx="3.03" cy="1.75" r="2.5"/><circle cx="0" cy="3.5" r="2.5"/><circle cx="-3.03" cy="1.75" r="2.5"/><circle cx="-3.03" cy="-1.75" r="2.5"/></g>
-      <circle r="2.3" fill="#FFF0A8" stroke="#9A6A00" stroke-width=".3"/>
-    </symbol>
-    <symbol id="mx-leaf" viewBox="0 0 16 34">
-      <path d="M8 0 C15 8 15 22 8 34 C1 22 1 8 8 0Z" fill="#167A55" stroke="#08402C" stroke-width=".8"/>
-      <path d="M8 2 V31" stroke="#0A4A33" stroke-width=".8"/>
-    </symbol>
-    <symbol id="mx-petal" viewBox="0 0 10 16">
-      <path d="M5 0 C10 4 10 11 5 16 C0 11 0 4 5 0Z" fill="currentColor" stroke="rgba(0,0,0,.35)" stroke-width=".5"/>
-    </symbol>
-  </defs>
-</svg>
-<div class="mx-world" aria-hidden="true">
-  <div class="mx-paisley"><div class="mx-paisley__tile"></div></div>
-  <div class="mx-glow"></div>
-  <!-- medallions, cut-outs, falling flowers are inserted here -->
-  <div class="mx-kite">
-    <svg viewBox="0 0 80 120"><path d="M40 4 L70 40 L40 82 L10 40Z" fill="#C2187A" stroke="#141210" stroke-width="1.6"/><path d="M40 4 L70 40 L40 40Z" fill="#F2A007"/><path d="M10 40 L40 40 L40 82Z" fill="#1F4FA8"/><path d="M40 4 V82 M10 40 H70" stroke="#141210" stroke-width="1.2"/><path d="M40 82 l-7 10 h14z" fill="#D92B1C" stroke="#141210" stroke-width="1"/><path d="M40 92 C 30 102 46 108 34 118 S 10 150 -40 170" fill="none" stroke="#F6EFDD" stroke-width="1" opacity=".85"/></svg>
-  </div>
-  <div class="mx-vignette"></div>
-</div>
 
 <!-- ============================================================ NAV -->
 <header class="nav">
@@ -283,56 +61,265 @@ body.mx{ background:var(--mx-crimson); }
 <main id="main">
 
 <!-- ============================================================ HERO
-     Courtyard dark canvas, 7/5 asymmetric split: copy left, matted
-     plate right with a Devanagari stamp. One haldi italic word. -->
-<section class="hero on-dark" aria-labelledby="hero-t">
+     The lotus is the hero. On a first visit it blooms centre stage
+     (js/home.js) and then glides into this spot, so the hero is the
+     opening's last frame. Shreya sits in it, typing (js/maximal.js). -->
+<section class="hero on-dark mx-hero" aria-labelledby="hero-t">
   <div class="wrap">
     <div class="g12">
       <div class="hero__copy">
-        <span class="zine-badge rise"><span class="dot" aria-hidden="true"></span><span>Archive open · <span data-count="all" data-deva lang="hi">२९</span> plates · 2023 — 2026</span></span>
+        <span class="zine-badge rise"><span class="dot" aria-hidden="true"></span><span>Product · Projects · Clients · Brand · Content</span></span>
         <h1 id="hero-t" class="display lines">
-          <span><span>Pictures I cut up,</span></span>
-          <span><span><em>re-coloured</em> and</span></span>
-          <span><span>talked back to.</span></span>
+          <span><span>Plans, people,</span></span>
+          <span><span><em>products</em> and</span></span>
+          <span><span>pictures that talk back.</span></span>
         </h1>
-        <p class="lede rise d1">Collage, poster type and night photographs made out of everyday India: costumes from family functions, street dogs with opinions, café lanterns, a bus that burned. Mostly edited on a phone. Always a little loud.</p>
+        <p class="lede rise d1">I'm Shreya. I work where product, people and pictures meet: turning requirements into tasks and user journeys, keeping projects and clients moving from brief to delivery, shaping brand and marketing stories, and making a good share of the visuals myself.</p>
         <div class="hero__ctas rise d2">
-          <a class="btn btn-primary" href="archive.html">Enter the archive <svg class="ico" viewBox="0 0 16 16" aria-hidden="true"><path d="M2 8h11M9 4l4 4-4 4"/></svg></a>
-          <a class="btn btn-secondary" href="about.html">About the maker</a>
+          <a class="btn btn-primary" href="#practice">See how I work <svg class="ico" viewBox="0 0 16 16" aria-hidden="true"><path d="M2 8h11M9 4l4 4-4 4"/></svg></a>
+          <a class="btn btn-secondary" href="archive.html">Enter the archive</a>
         </div>
       </div>
 
-      <figure class="hero__visual rise d1">
-        <div class="mat mat--shadow" data-parallax=".1">
-          <a href="plate.html?w=aankhein" aria-label="Open plate: Aankhein">
-            <div class="mat__win wipe"><img src="assets/img/aankhein.jpg" alt="Aankhein — five horizontal slices of the same eyes, graded acid-yellow to red, with the title in an italic serif" width="736" height="1308" fetchpriority="high"></div>
-          </a>
-          <figcaption class="mat__cap mono-s"><span>Aankhein</span><span>Plate २७ / 27</span></figcaption>
-          <span class="stamp" lang="hi" aria-hidden="true">आँखें</span>
+      <figure class="hero__visual mx-hero__visual">
+        <div class="mx-lotus">
+          <div class="mx-lotus__float"><div class="mx-lotus__art"></div></div>
         </div>
+        <figcaption class="visually-hidden">An illustrated lotus in full bloom. Shreya, a little pixel-art version of me, sits in it working on her laptop. You can click her, drag her anywhere, or move her with the arrow keys.</figcaption>
+        <a class="mx-postcard" href="plate.html?w=aankhein">
+          <span class="mat"><span class="mat__win"><img src="assets/img/aankhein.jpg" alt="Aankhein — five horizontal slices of the same eyes, graded acid-yellow to red, with the title in an italic serif" width="736" height="1308"></span></span>
+          <span class="mx-postcard__cap mono-s">Plate २७ · Aankhein</span>
+        </a>
       </figure>
     </div>
 
     <div class="hero__strip mono-s rise d3">
-      <span><b>Collage</b> · Poster · Night · Day</span>
-      <span><b>Edited in</b> Picsart</span>
+      <span><b>Product</b> · Projects · Clients · Brand · Content</span>
       <span><b>Local time</b> <span data-ist class="clock">--:--:-- IST</span></span>
+      <button class="mx-replay" type="button" data-replay-intro>Replay the bloom <span aria-hidden="true">↺</span></button>
       <span aria-hidden="true">Scroll ↓</span>
     </div>
   </div>
 </section>
+<button class="mx-skip btn btn-secondary" type="button" hidden>Skip intro <span aria-hidden="true">→</span></button>
 
 <div class="trim" role="presentation"></div>
 
-<!-- ============================================================ 01 SELECTED PLATES
+<!-- ============================================================ 01 PRACTICE
+     Five petals, one practice. A tablist (js/home.js) over five chapters;
+     each petal has its own colour, motif and way of drawing its process.
+     "From the work" lists real deliverables only: no outcomes or numbers
+     are claimed. Without JS every chapter is simply shown in turn. -->
+<section id="practice" class="section pr-section" aria-labelledby="pr-t">
+  <div class="wrap">
+    <header class="sec-head">
+      <span class="idx"><span class="deva">०१</span><span>/ 01</span></span>
+      <h2 id="pr-t" class="display-s" data-shreya-says="think|Five petals!">Five petals, <em>one practice</em></h2>
+      <p class="sec-meta mono-s muted">How the work splits, and where each part has actually shown up.</p>
+    </header>
+    <p class="lede pr-intro rise">The work rarely sits in one box. In a single week it can move from a product question to a project deadline, a client update, a brand idea and a piece of content. Pick a petal.</p>
+
+    <div class="pr" data-theme="product">
+      <div class="pr-nav">
+        <svg class="pr-dial" viewBox="-160 -160 320 180" data-active="0" aria-hidden="true">
+          <defs><path id="pr-petal" d="M0 0C-36 -16 -34 -58 0 -130C34 -58 36 -16 0 0Z"/></defs>
+          <g data-i="0" transform="rotate(-70)"><use href="#pr-petal" class="pr-dial__p" style="--c:#1F4FA8"/><text y="-96" class="pr-dial__n" transform="rotate(70 0 -96)">क</text></g>
+          <g data-i="1" transform="rotate(-35)"><use href="#pr-petal" class="pr-dial__p" style="--c:#0F6B4F"/><text y="-96" class="pr-dial__n" transform="rotate(35 0 -96)">ख</text></g>
+          <g data-i="2"><use href="#pr-petal" class="pr-dial__p" style="--c:#E5A024"/><text y="-96" class="pr-dial__n">ग</text></g>
+          <g data-i="3" transform="rotate(35)"><use href="#pr-petal" class="pr-dial__p" style="--c:#C2187A"/><text y="-96" class="pr-dial__n" transform="rotate(-35 0 -96)">घ</text></g>
+          <g data-i="4" transform="rotate(70)"><use href="#pr-petal" class="pr-dial__p" style="--c:#D92B1C"/><text y="-96" class="pr-dial__n" transform="rotate(-70 0 -96)">ङ</text></g>
+          <ellipse cx="0" cy="6" rx="46" ry="12" fill="#E5A024" stroke="#141210" stroke-width="2"/>
+        </svg>
+        <div class="pr-tabs" role="tablist" aria-label="Disciplines">
+          <button role="tab" id="pr-tab-product" aria-controls="pr-product" aria-selected="true" data-shreya="type|Writing specs"><span class="deva" lang="hi">क</span><span><b>Product</b><small>management</small></span></button>
+          <button role="tab" id="pr-tab-projects" aria-controls="pr-projects" aria-selected="false" tabindex="-1" data-shreya="think|What's pending?"><span class="deva" lang="hi">ख</span><span><b>Projects</b><small>&amp; coordination</small></span></button>
+          <button role="tab" id="pr-tab-clients" aria-controls="pr-clients" aria-selected="false" tabindex="-1" data-shreya="hearts|Following up!"><span class="deva" lang="hi">ग</span><span><b>Clients</b><small>&amp; communication</small></span></button>
+          <button role="tab" id="pr-tab-marketing" aria-controls="pr-marketing" aria-selected="false" tabindex="-1" data-shreya="surprised|Campaign idea!"><span class="deva" lang="hi">घ</span><span><b>Marketing</b><small>branding &amp; strategy</small></span></button>
+          <button role="tab" id="pr-tab-content" aria-controls="pr-content" aria-selected="false" tabindex="-1" data-shreya="headphones|Editing mode"><span class="deva" lang="hi">ङ</span><span><b>Content</b><small>&amp; editorial</small></span></button>
+        </div>
+      </div>
+
+      <div class="pr-panels">
+
+        <!-- A · PRODUCT — blueprint blue, a numbered flowchart -->
+        <article class="pr-panel" id="pr-product" role="tabpanel" aria-labelledby="pr-tab-product" data-theme="product" tabindex="0">
+          <div class="pr-band" aria-hidden="true"><span>REQ → FLOW → TASK → TEST</span></div>
+          <header class="pr-head">
+            <span class="pr-kicker mono-s"><span class="deva" lang="hi">क</span> Petal A · Product</span>
+            <h3 class="brutal">Product management</h3>
+            <p class="pr-lede">Working out what a product actually needs to do, then turning that into something a team can build and test.</p>
+          </header>
+          <ol class="pr-flow pr-flow--steps">
+            <li><b>Requirements</b><span>Understand what's being asked for, and why</span></li>
+            <li><b>Journeys</b><span>Map user journeys and product workflows</span></li>
+            <li><b>Research</b><span>Study the product space and its competitors</span></li>
+            <li><b>Prioritise</b><span>Plan features and decide what comes first</span></li>
+            <li><b>Translate</b><span>Turn business needs into tasks the tech team can pick up</span></li>
+            <li><b>Test &amp; improve</b><span>Test, collect feedback, feed it back in</span></li>
+          </ol>
+          <h4 class="pr-sub mono-s">From the work</h4>
+          <ul class="pr-work">
+            <li><div class="pr-work__h"><b>Rentop</b><span class="mono-s">Vehicle rentals · ForkLyft</span></div>
+              <p>A feature sheet for the platform, QA test reports across testing rounds, a city landing page and hero-section concepts.</p>
+              <ul class="tags"><li class="tag">Feature sheet</li><li class="tag">QA reports</li><li class="tag">City page</li></ul></li>
+            <li><div class="pr-work__h"><b>Solace Care Platform</b><span class="mono-s">Independent build</span></div>
+              <p>An appointment and follow-up manager for patients, doctors and clinic admins: doctor search, slot holds, confirmations and a patient care timeline.</p>
+              <ul class="tags"><li class="tag">Three user roles</li><li class="tag">Booking flow</li></ul></li>
+            <li><div class="pr-work__h"><b>Catering operations app</b><span class="mono-s">ForkLyft</span></div>
+              <p>Role-based screens for admin, departments, dispatch and store, with menu and workflow pages and a demo walkthrough.</p>
+              <ul class="tags"><li class="tag">Workflows</li><li class="tag">Demo video</li></ul></li>
+            <li><div class="pr-work__h"><b>StarFire · Starsafe</b><span class="mono-s">ForkLyft</span></div>
+              <p>An end-to-end flow document and a beginner's guide to how the product works inside Odoo.</p>
+              <ul class="tags"><li class="tag">Flow doc</li><li class="tag">User guide</li></ul></li>
+            <li><div class="pr-work__h"><b>Capstone</b><span class="mono-s">University</span></div>
+              <p>An architecture and implementation guide for an AI-assisted business SaaS suite: CRM, help desk, books and analytics.</p>
+              <ul class="tags"><li class="tag">Product blueprint</li></ul></li>
+          </ul>
+          <button class="link pr-next" type="button" data-next-petal>Next petal <span class="arr">→</span></button>
+        </article>
+
+        <!-- B · PROJECTS — emerald, a toran timeline with marigold milestones -->
+        <article class="pr-panel" id="pr-projects" role="tabpanel" aria-labelledby="pr-tab-projects" data-theme="projects" tabindex="0">
+          <div class="pr-band" aria-hidden="true"><span>PLAN · TRACK · FOLLOW UP · DELIVER</span></div>
+          <header class="pr-head">
+            <span class="pr-kicker mono-s"><span class="deva" lang="hi">ख</span> Petal B · Projects</span>
+            <h3 class="brutal">Project management &amp; coordination</h3>
+            <p class="pr-lede">Keeping several people, timelines and deliverables pointed the same way until the thing actually ships.</p>
+          </header>
+          <ol class="pr-flow pr-flow--timeline">
+            <li><b>Plan</b><span>Timelines and deliverables</span></li>
+            <li><b>Coordinate</b><span>Cross-functional teams and stakeholders</span></li>
+            <li><b>Track</b><span>Progress, and follow-ups on what's pending</span></li>
+            <li><b>Organise</b><span>Workflows and documentation</span></li>
+            <li><b>Deliver</b><span>From planning through to done</span></li>
+          </ol>
+          <h4 class="pr-sub mono-s">From the work</h4>
+          <ul class="pr-work">
+            <li><div class="pr-work__h"><b>Vizion Tools · Odoo go-live</b><span class="mono-s">ForkLyft</span></div>
+              <p>QA test instructions written up as a checklist for the go-live.</p>
+              <ul class="tags"><li class="tag">Go-live checklist</li></ul></li>
+            <li><div class="pr-work__h"><b>Three brands, one month</b><span class="mono-s">ForkLyft · Rentop · Vizion Tools</span></div>
+              <p>LinkedIn and X content calendars for three brands, planned side by side for November 2026.</p>
+              <ul class="tags"><li class="tag">Content calendars</li><li class="tag">Scheduling</li></ul></li>
+            <li><div class="pr-work__h"><b>Rentop · Startup Qatar</b><span class="mono-s">Programme application</span></div>
+              <p>The application package: pitch deck, founder profiles and a historical and projected financials workbook.</p>
+              <ul class="tags"><li class="tag">Pitch deck</li><li class="tag">Founder profiles</li><li class="tag">Financials</li></ul></li>
+            <li><div class="pr-work__h"><b>Many clients at once</b><span class="mono-s">ForkLyft studio</span></div>
+              <p>Client work running in parallel: Rentop, SwitchLess, Vizion Tools, Zohome, StarFire and a catering operations app.</p>
+              <ul class="tags"><li class="tag">Parallel delivery</li></ul></li>
+            <li><div class="pr-work__h"><b>Dubai Chambers · AI Agents Championship</b><span class="mono-s">With SwitchLess</span></div>
+              <p>Working notes for the championship.</p>
+              <ul class="tags"><li class="tag">Notes</li></ul></li>
+          </ul>
+          <button class="link pr-next" type="button" data-next-petal>Next petal <span class="arr">→</span></button>
+        </article>
+
+        <!-- C · CLIENTS — marigold, a conversation thread -->
+        <article class="pr-panel" id="pr-clients" role="tabpanel" aria-labelledby="pr-tab-clients" data-theme="clients" tabindex="0">
+          <div class="pr-band" aria-hidden="true"><span>BRIEF · UPDATE · FEEDBACK · REVISE</span></div>
+          <header class="pr-head">
+            <span class="pr-kicker mono-s"><span class="deva" lang="hi">ग</span> Petal C · Clients</span>
+            <h3 class="brutal">Client communication &amp; relationships</h3>
+            <p class="pr-lede">Being the person who listens to the brief, keeps everyone updated, and makes sure feedback turns into the right internal tasks.</p>
+          </header>
+          <ol class="pr-flow pr-flow--chat">
+            <li class="them"><b>Requirements</b><span>Gather what they need, and what they expect</span></li>
+            <li class="me"><b>Tasks</b><span>Translate it into clear internal tasks</span></li>
+            <li class="them"><b>Updates</b><span>Share progress before anyone has to ask</span></li>
+            <li class="me"><b>Feedback</b><span>Collect revisions and coordinate them back to the team</span></li>
+            <li class="them"><b>Follow-ups</b><span>Keep communication professional across every stakeholder</span></li>
+          </ol>
+          <h4 class="pr-sub mono-s">From the work</h4>
+          <ul class="pr-work">
+            <li><div class="pr-work__h"><b>Zohome</b><span class="mono-s">ForkLyft</span></div>
+              <p>Reference images sent by the client, turned into a written design spec and then a coded, animated preview.</p>
+              <ul class="tags"><li class="tag">References → spec</li><li class="tag">Preview</li></ul></li>
+            <li><div class="pr-work__h"><b>SwitchLess</b><span class="mono-s">ForkLyft</span></div>
+              <p>A design brief and brand copy written up as documents, then carried through logo rounds, colour and type themes and the website.</p>
+              <ul class="tags"><li class="tag">Design brief</li><li class="tag">Brand copy</li></ul></li>
+            <li><div class="pr-work__h"><b>Rentop</b><span class="mono-s">ForkLyft</span></div>
+              <p>Test findings written up as QA reports for the team, round after round, through to a final report.</p>
+              <ul class="tags"><li class="tag">QA reports</li></ul></li>
+          </ul>
+          <button class="link pr-next" type="button" data-next-petal>Next petal <span class="arr">→</span></button>
+        </article>
+
+        <!-- D · MARKETING — magenta, a pinned sticker board -->
+        <article class="pr-panel" id="pr-marketing" role="tabpanel" aria-labelledby="pr-tab-marketing" data-theme="marketing" tabindex="0">
+          <div class="pr-band" aria-hidden="true"><span>POSITION · PLAN · POST · GROW</span></div>
+          <header class="pr-head">
+            <span class="pr-kicker mono-s"><span class="deva" lang="hi">घ</span> Petal D · Marketing</span>
+            <h3 class="brutal">Marketing, branding &amp; strategy</h3>
+            <p class="pr-lede">Deciding what a brand should say and how it should look, then planning where and when it says it.</p>
+          </header>
+          <ul class="pr-flow pr-flow--board">
+            <li>Brand positioning</li><li>Content strategy &amp; planning</li><li>Social media management</li><li>Campaign ideas</li>
+            <li>Competitor &amp; market research</li><li>Brand identity &amp; creative direction</li><li>Audience engagement</li><li>Storytelling</li>
+          </ul>
+          <h4 class="pr-sub mono-s">From the work</h4>
+          <ul class="pr-work">
+            <li><div class="pr-work__h"><b>SwitchLess</b><span class="mono-s">ForkLyft</span></div>
+              <p>Brand copy, three rounds of logo marks, colour and type themes, plus pitch and investor decks.</p>
+              <ul class="tags"><li class="tag">Identity</li><li class="tag">Decks</li></ul></li>
+            <li><div class="pr-work__h"><b>Rentop social</b><span class="mono-s">ForkLyft</span></div>
+              <p>Instagram brand identity, promotional posts and reels, 24 × 18 in print flex banners, a LinkedIn header and a LinkedIn &amp; X content calendar.</p>
+              <ul class="tags"><li class="tag">Instagram</li><li class="tag">Print</li><li class="tag">Calendar</li></ul></li>
+            <li><div class="pr-work__h"><b>Promo Campaign Compare</b><span class="mono-s">Independent project</span></div>
+              <p>An implementation plan for comparing promotional campaigns with a causal-impact analysis.</p>
+              <ul class="tags"><li class="tag">Campaign analysis</li></ul></li>
+          </ul>
+          <button class="link pr-next" type="button" data-next-petal>Next petal <span class="arr">→</span></button>
+        </article>
+
+        <!-- E · CONTENT — vermilion, a film strip; the archive lives here -->
+        <article class="pr-panel" id="pr-content" role="tabpanel" aria-labelledby="pr-tab-content" data-theme="content" tabindex="0">
+          <div class="pr-band" aria-hidden="true"><span>WRITE · SHOOT · CUT · GRADE</span></div>
+          <header class="pr-head">
+            <span class="pr-kicker mono-s"><span class="deva" lang="hi">ङ</span> Petal E · Content</span>
+            <h3 class="brutal">Content creation &amp; editorial</h3>
+            <p class="pr-lede">Making the thing itself: the words, the pictures and the cut. The archive below is this petal's personal side.</p>
+          </header>
+          <ol class="pr-flow pr-flow--film">
+            <li><b>Develop</b><span>Content ideas and plans</span></li>
+            <li><b>Write</b><span>Copywriting and editing</span></li>
+            <li><b>Shoot</b><span>Photography and video</span></li>
+            <li><b>Shape</b><span>Visual storytelling and creative direction</span></li>
+            <li><b>Post</b><span>Social media and brand storytelling</span></li>
+          </ol>
+          <h4 class="pr-sub mono-s">From the work</h4>
+          <ul class="pr-work">
+            <li><div class="pr-work__h"><b>This archive</b><span class="mono-s">Personal practice</span></div>
+              <p>Twenty-nine plates of collage, poster type and night photography, 2023 to 2026. <a class="link" href="#sel-t">Selected plates <span class="arr">↓</span></a> <a class="link" href="archive.html">The archive <span class="arr">→</span></a></p>
+              <ul class="tags"><li class="tag">Collage</li><li class="tag">Photography</li></ul></li>
+            <li><div class="pr-work__h"><b>Rentop video</b><span class="mono-s">ForkLyft</span></div>
+              <p>Short videos showing a trip from both the rider's and the host's side.</p>
+              <ul class="tags"><li class="tag">Video</li></ul></li>
+            <li><div class="pr-work__h"><b>Rentop city pages</b><span class="mono-s">ForkLyft</span></div>
+              <p>City description copy and imagery for city landing pages.</p>
+              <ul class="tags"><li class="tag">Web copy</li></ul></li>
+            <li><div class="pr-work__h"><b>SwitchLess</b><span class="mono-s">ForkLyft</span></div>
+              <p>A "works in a power cut" animation, and the hero video for the website.</p>
+              <ul class="tags"><li class="tag">Motion</li></ul></li>
+          </ul>
+          <button class="link pr-next" type="button" data-next-petal>Back to the first petal <span class="arr">↺</span></button>
+        </article>
+
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="mx-toran" aria-hidden="true"><div class="mx-toran__rope" data-ledge></div></div>
+
+<!-- ============================================================ 02 SELECTED PLATES
      Alternating editorial rhythm: wide plate (meta left, sticky) →
      asymmetric 7/4 pair → reversed plate. Blueprint hairlines on. -->
 <section class="section blueprint" aria-labelledby="sel-t">
   <div class="wrap">
     <header class="sec-head">
-      <span class="idx"><span class="deva">०१</span><span>/ 01</span></span>
-      <h2 id="sel-t" class="display-s">Selected <em>plates</em></h2>
-      <p class="sec-meta mono-s muted">Four pieces that hold the whole archive: headline type, borrowed lettering, a burnt date.</p>
+      <span class="idx"><span class="deva">०२</span><span>/ 02</span></span>
+      <h2 id="sel-t" data-shreya-says="hearts|My favourites" class="display-s">Selected <em>plates</em></h2>
+      <p class="sec-meta mono-s muted">From the content petal: four pieces that hold the whole archive. Headline type, borrowed lettering, a burnt date.</p>
     </header>
 
     <article class="g12 plate plate--wide">
@@ -388,14 +375,14 @@ body.mx{ background:var(--mx-crimson); }
 
 <div class="mx-toran" aria-hidden="true"><div class="mx-toran__rope" data-ledge></div></div>
 
-<!-- ============================================================ 02 SERIES INDEX
+<!-- ============================================================ 03 SERIES INDEX
      A "print spec" grid, not cards: four bordered columns that flip
      to Haldi on hover. Each opens the archive pre-filtered. -->
 <section class="section on-parchment turn turn-b" aria-labelledby="ser-t">
   <div class="wrap">
     <header class="sec-head">
-      <span class="idx"><span class="deva">०२</span><span>/ 02</span></span>
-      <h2 id="ser-t" class="display-s">Four ways <em>in</em></h2>
+      <span class="idx"><span class="deva">०३</span><span>/ 03</span></span>
+      <h2 id="ser-t" data-shreya-says="think|Pick a way in" class="display-s">Four ways <em>in</em></h2>
       <p class="sec-meta mono-s muted">The archive sorted by what each plate does, not by when.</p>
     </header>
 
@@ -434,14 +421,14 @@ body.mx{ background:var(--mx-crimson); }
 
 <div class="mx-frieze" aria-hidden="true" data-ledge><div class="mx-frieze__run"></div></div>
 
-<!-- ============================================================ 03 AFTER DARK
+<!-- ============================================================ 04 AFTER DARK
      Courtyard gallery: a horizontal film strip with sprocket holes.
      Frames sit in warm duotone and snap to full colour on hover. -->
 <section class="section on-dark" aria-labelledby="film-t" data-film-wrap>
   <div class="wrap">
     <header class="sec-head">
-      <span class="idx"><span class="deva">०३</span><span>/ 03</span></span>
-      <h2 id="film-t" class="display-s">After <em>dark</em></h2>
+      <span class="idx"><span class="deva">०४</span><span>/ 04</span></span>
+      <h2 id="film-t" data-shreya-says="headphones|Night mode" class="display-s">After <em>dark</em></h2>
       <div class="sec-meta film__ctrl">
         <button class="icon-btn" type="button" data-film-prev aria-label="Previous frames"><svg class="ico" viewBox="0 0 16 16" aria-hidden="true"><path d="M14 8H3M7 4 3 8l4 4"/></svg></button>
         <button class="icon-btn" type="button" data-film-next aria-label="Next frames"><svg class="ico" viewBox="0 0 16 16" aria-hidden="true"><path d="M2 8h11M9 4l4 4-4 4"/></svg></button>
@@ -456,14 +443,14 @@ body.mx{ background:var(--mx-crimson); }
 
 <div class="mx-toran" aria-hidden="true"><div class="mx-toran__rope" data-ledge></div></div>
 
-<!-- ============================================================ 04 ABOUT (teaser)
+<!-- ============================================================ 05 ABOUT (teaser)
      Sharp switch back to Kagaz. Two-column editorial spread:
      matted plate left, pull-quote + short narrative right. -->
 <section class="section turn" aria-labelledby="about-t">
   <div class="wrap">
     <header class="sec-head">
-      <span class="idx"><span class="deva">०४</span><span>/ 04</span></span>
-      <h2 id="about-t" class="display-s">About the <em>practice</em></h2>
+      <span class="idx"><span class="deva">०५</span><span>/ 05</span></span>
+      <h2 id="about-t" data-shreya-says="hearts|That&#39;s me!" class="display-s">About the <em>practice</em></h2>
       <p class="sec-meta mono-s muted">Who makes these and why.</p>
     </header>
     <div class="g12 spread">
@@ -485,14 +472,14 @@ body.mx{ background:var(--mx-crimson); }
 
 <div class="mx-frieze" aria-hidden="true" data-ledge><div class="mx-frieze__run"></div></div>
 
-<!-- ============================================================ 05 LEDGER
+<!-- ============================================================ 06 LEDGER
      Minimal ledger, one row per year. Rows highlight in Parchment
      with a Sindoor bar on hover. Built from js/works.js. -->
 <section class="section section--tight" aria-labelledby="led-t" style="padding-top:0">
   <div class="wrap">
     <header class="sec-head">
-      <span class="idx"><span class="deva">०५</span><span>/ 05</span></span>
-      <h2 id="led-t" class="display-s">The <em>ledger</em></h2>
+      <span class="idx"><span class="deva">०६</span><span>/ 06</span></span>
+      <h2 id="led-t" data-shreya-says="type|Keeping count" class="display-s">The <em>ledger</em></h2>
       <p class="sec-meta mono-s muted">Every plate by year. Dates come from the original export files.</p>
     </header>
     <div class="years" data-years></div>
@@ -501,15 +488,15 @@ body.mx{ background:var(--mx-crimson); }
 
 <div class="mx-toran" aria-hidden="true"><div class="mx-toran__rope" data-ledge></div></div>
 
-<!-- ============================================================ 06 CONTACT -->
+<!-- ============================================================ 07 CONTACT -->
 <section id="contact" class="section on-parchment turn contact" aria-labelledby="con-t">
   <div class="wrap">
     <header class="sec-head">
-      <span class="idx"><span class="deva">०६</span><span>/ 06</span></span>
+      <span class="idx"><span class="deva">०७</span><span>/ 07</span></span>
       <span class="mono muted" style="grid-column:2;align-self:end">Contact</span>
       <p class="sec-meta mono-s muted">Replies within a few days, IST.</p>
     </header>
-    <h2 id="con-t" class="display lines">
+    <h2 id="con-t" data-shreya-says="thumbs|Write to me!" class="display lines">
       <span><span>Let's make something</span></span>
       <span><span><em>unforgettable.</em></span></span>
     </h2>
@@ -567,601 +554,10 @@ body.mx{ background:var(--mx-crimson); }
   </div>
 </footer>
 
-<!-- ============================================================ SHREYA
-     The companion. Drawn from the sprite sheet onto a canvas; the button
-     covers her body so she can be hovered, clicked or focused. -->
-<div class="mx-rug" aria-hidden="true">
-  <svg viewBox="0 0 60 18"><path d="M3 4 H57 L55 14 H5Z" fill="#B3122E" stroke="#141210" stroke-width="1.2"/><path d="M8 6.5 H52 L51 11.5 H9Z" fill="none" stroke="#F2A007" stroke-width="1.2"/><path d="M15 9 l3-2.2 3 2.2-3 2.2z M27 9 l3-2.2 3 2.2-3 2.2z M39 9 l3-2.2 3 2.2-3 2.2z" fill="#1F4FA8"/><path d="M5 14 v3 M9 14 v3 M13 14 v3 M17 14 v3 M21 14 v3 M25 14 v3 M29 14 v3 M33 14 v3 M37 14 v3 M41 14 v3 M45 14 v3 M49 14 v3 M53 14 v3" stroke="#F6EFDD" stroke-width="1"/></svg>
-</div>
-<div class="mx-shreya" aria-hidden="false">
-  <canvas class="mx-shreya__cv" aria-hidden="true"></canvas>
-  <button class="mx-shreya__btn" type="button" aria-label="Shreya, the little guide of this site. Press to say hello."></button>
-  <div class="mx-shreya__bubble" aria-hidden="true"><canvas width="144" height="144"></canvas><span class="mx-shreya__say"></span></div>
-</div>
 
 <script src="js/works.js"></script>
 <script src="js/site.js"></script>
-<script>
-/* =====================================================================
-   MAXIMAL WORLD + SHREYA (home page only)
-   ===================================================================== */
-(function () {
-  'use strict';
-  var REDUCED = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-  var mqMobile = window.matchMedia('(max-width: 767px)');
-  var FINE = window.matchMedia('(hover: hover) and (pointer: fine)').matches;
-  var world = document.querySelector('.mx-world');
-  var kite = document.querySelector('.mx-kite');
-  var rand = function (a, b) { return a + Math.random() * (b - a); };
-  var clamp = function (v, a, b) { return Math.max(a, Math.min(b, v)); };
-  var PAL = ['#D92B1C', '#F2A007', '#0F6B4F', '#1F4FA8', '#C2187A', '#F6EFDD', '#8C5A2B'];
-
-  /* ------------------------------------------------ 1. collage cut-outs
-     r = crop in collage.webp (x, y, w, h); fx/fy = place in a virtual
-     field 1.8 viewports tall; d = parallax depth; m = shown on mobile.
-     `n` is what Shreya calls it if she stops beside one. */
-  var SCRAPS = [
-    { n: 'Mysore mangoes!', r: [578, 0, 210, 295],   fx: .05, fy: .07, w: 150, rot: -7, d: .30, m: 1 },
-    { n: 'Fashion!',        r: [800, 90, 310, 400],  fx: .90, fy: .03, w: 170, rot: 6,  d: .45, m: 1 },
-    { n: 'Bombastic!',      r: [405, 315, 385, 180], fx: .58, fy: .31, w: 260, rot: -4, d: .22, m: 1 },
-    { n: 'Mogra!',          r: [85, 330, 300, 270],  fx: .82, fy: .40, w: 190, rot: 8,  d: .38 },
-    { n: 'Truck art!',      r: [100, 600, 260, 330], fx: .05, fy: .42, w: 160, rot: 5,  d: .50, m: 1 },
-    { n: 'Swagatam!',       r: [360, 535, 265, 300], fx: .36, fy: .60, w: 170, rot: -6, d: .30 },
-    { n: 'Gajraj!',         r: [628, 790, 165, 320], fx: .94, fy: .64, w: 110, rot: -9, d: .55, m: 1 },
-    { n: 'Ooh, pretty',     r: [335, 1010, 300, 300], fx: .63, fy: .72, w: 210, rot: 0,  d: .18, m: 1, spin: 1 },
-    { n: 'Post a letter!',  r: [615, 1090, 175, 450], fx: .12, fy: .74, w: 100, rot: 4,  d: .42 },
-    { n: 'Haathi!',         r: [10, 1270, 395, 430], fx: .76, fy: .88, w: 200, rot: 7,  d: .32, m: 1 },
-    { n: 'Ja!',             r: [410, 1320, 230, 230], fx: .22, fy: .91, w: 140, rot: -8, d: .48, m: 1 },
-    { n: 'Pani puri!',      r: [655, 1525, 175, 170], fx: .46, fy: .05, w: 120, rot: 10, d: .52 },
-    { n: 'Bombastic!',      r: [0, 1705, 520, 295],  fx: .27, fy: .21, w: 270, rot: 3,  d: .26, m: 1 },
-    { n: 'Matkas!',         r: [870, 1515, 255, 485], fx: .95, fy: .24, w: 120, rot: -4, d: .36 },
-    { n: 'Hello, doll',     r: [505, 1640, 200, 360], fx: .52, fy: .93, w: 120, rot: 6,  d: .44 },
-    { n: 'Jharokha!',       r: [60, 850, 290, 430],  fx: .41, fy: .45, w: 160, rot: -3, d: .20 },
-    { n: 'Mehendi!',        r: [0, 160, 230, 230],   fx: .68, fy: .15, w: 130, rot: 14, d: .60, m: 1 }
-  ];
-  /* rangoli medallions, drawn here so their colours stay in the palette */
-  var MEDS = [
-    { fx: .14, fy: .28, s: 380, d: .12, t: 160, o: .55 },
-    { fx: .84, fy: .56, s: 460, d: .10, t: 210, o: .5, rev: 1 },
-    { fx: .47, fy: .96, s: 300, d: .16, t: 130, o: .55, m: 1 },
-    { fx: .60, fy: .12, s: 220, d: .20, t: 110, o: .6, rev: 1, m: 1 }
-  ];
-
-  var mobile = mqMobile.matches;
-  var scale = mobile ? .62 : 1;
-  var placed = [];          // everything that parallaxes: {el, fx, fy, w, h, d}
-
-  function torn(W, H) {
-    var p = [], step = 14, j = function () { return rand(0, 4.5).toFixed(1); };
-    for (var x = 0; x < W; x += step) p.push(x.toFixed(1) + 'px ' + j() + 'px');
-    for (var y = 0; y < H; y += step) p.push('calc(100% - ' + j() + 'px) ' + y.toFixed(1) + 'px');
-    for (x = W; x > 0; x -= step) p.push(x.toFixed(1) + 'px calc(100% - ' + j() + 'px)');
-    for (y = H; y > 0; y -= step) p.push(j() + 'px ' + y.toFixed(1) + 'px');
-    return 'polygon(' + p.join(',') + ')';
-  }
-
-  function rangoli(seed) {
-    var c = function (i) { return PAL[(seed + i) % 6]; };
-    var g = '', i, a;
-    for (i = 0; i < 24; i++) { a = i * 15; g += '<ellipse cx="0" cy="-82" rx="7" ry="15" transform="rotate(' + a + ')" fill="' + c(0) + '" stroke="#2a0a10" stroke-width="1"/>'; }
-    for (i = 0; i < 32; i++) { a = i * 11.25; g += '<circle cx="0" cy="-64" r="2.6" transform="rotate(' + a + ')" fill="' + c(5) + '"/>'; }
-    for (i = 0; i < 16; i++) { a = i * 22.5; g += '<path d="M0 -58 C8 -48 8 -40 0 -32 C-8 -40 -8 -48 0 -58Z" transform="rotate(' + a + ')" fill="' + c(1) + '" stroke="#2a0a10" stroke-width="1"/>'; }
-    for (i = 0; i < 12; i++) { a = i * 30; g += '<path d="M0 -30 L6 -22 L0 -14 L-6 -22Z" transform="rotate(' + a + ')" fill="' + c(2) + '"/>'; }
-    g += '<circle r="12" fill="' + c(3) + '" stroke="' + c(5) + '" stroke-width="3"/><circle r="4" fill="' + c(1) + '"/>';
-    return '<svg viewBox="-100 -100 200 200"><circle r="96" fill="none" stroke="' + c(4) + '" stroke-width="2" stroke-dasharray="2 5"/>' + g + '</svg>';
-  }
-
-  function buildWorld() {
-    var frag = document.createDocumentFragment();
-    MEDS.forEach(function (m, k) {
-      if (mobile && !m.m) return;
-      var s = m.s * scale, el = document.createElement('div');
-      el.className = 'mx-med' + (m.rev ? ' rev' : '');
-      el.style.cssText = 'width:' + s + 'px;height:' + s + 'px;opacity:' + m.o + ';--d:' + m.t + 's';
-      el.innerHTML = rangoli(k * 2);
-      frag.appendChild(el);
-      placed.push({ el: el, fx: m.fx, fy: m.fy, w: s, h: s, d: m.d });
-    });
-    SCRAPS.forEach(function (s) {
-      if (mobile && !s.m) return;
-      var pad = 7, w = s.w * scale, k = w / s.r[2], h = s.r[3] * k;
-      var W = w + pad * 2, H = h + pad * 2, clip = torn(W, H);
-      var el = document.createElement('div');
-      el.className = 'mx-scrap' + (s.spin ? ' mx-scrap--spin' : '');
-      el.style.cssText = 'width:' + W + 'px;height:' + H + 'px';
-      el.innerHTML = '<div class="mx-scrap__bob" style="--r:' + s.rot + 'deg;--d:' + rand(9, 16).toFixed(1) + 's;--dl:-' + rand(0, 9).toFixed(1) + 's">' +
-        '<div class="mx-scrap__shadow" style="clip-path:' + clip + '"></div>' +
-        '<div class="mx-scrap__paper" style="clip-path:' + clip + '"><div class="mx-scrap__img" style="background-size:' + (1125 * k).toFixed(1) + 'px ' + (2000 * k).toFixed(1) + 'px;background-position:-' + (s.r[0] * k).toFixed(1) + 'px -' + (s.r[1] * k).toFixed(1) + 'px"></div></div></div>';
-      frag.appendChild(el);
-      placed.push({ el: el, fx: s.fx, fy: s.fy, w: W, h: H, d: s.d, name: s.n });
-    });
-    var n = mobile ? 7 : 15;
-    for (var i = 0; i < n; i++) {
-      var flower = i % 3 !== 2, el = document.createElement('div'), sz = flower ? rand(18, 34) : rand(10, 16);
-      el.className = 'mx-fall';
-      el.style.cssText = '--x:' + rand(0, 100).toFixed(1) + '%;--s:' + sz.toFixed(0) + 'px;--d:' + rand(18, 32).toFixed(1) + 's;--dl:-' + rand(0, 32).toFixed(1) + 's;--sw:' + rand(20, 70).toFixed(0) + 'px;--sd:' + rand(6, 14).toFixed(1) + 's;color:' + ['#D92B1C', '#C2187A', '#F2A007'][i % 3];
-      el.innerHTML = '<svg viewBox="' + (flower ? '-10 -10 20 20' : '0 0 10 16') + '"><use href="#' + (flower ? (i % 2 ? 'mx-mari' : 'mx-mari-y') : 'mx-petal') + '"/></svg>';
-      frag.appendChild(el);
-    }
-    world.insertBefore(frag, kite);
-  }
-
-  /* toran strings: alternate long and short so the hem scallops */
-  function buildTorans() {
-    document.querySelectorAll('.mx-toran').forEach(function (t) {
-      t.querySelectorAll('.mx-toran__str, .mx-toran__leaf').forEach(function (e) { e.remove(); });
-      var W = t.clientWidth, gap = mobile ? 40 : 52, n = Math.ceil(W / gap) + 1, html = '';
-      for (var i = 0; i < n; i++) {
-        var x = i * gap - 11, beads = (i % 2 ? 3 : 5) - (mobile ? 1 : 0), H = beads * 17 + 40, svg = '';
-        svg += '<path d="M11 0 V' + (beads * 17 + 4) + '" stroke="#6B1D1D" stroke-width="1"/>';
-        for (var b = 0; b < beads; b++) svg += '<use href="#' + ((b + i) % 3 ? 'mx-mari' : 'mx-mari-y') + '" x="1" y="' + (2 + b * 17) + '" width="20" height="20"/>';
-        svg += '<use href="#mx-leaf" x="4" y="' + (beads * 17 + 4) + '" width="14" height="30"/>';
-        html += '<div class="mx-toran__str" style="left:' + x + 'px;--d:' + rand(3.2, 5.2).toFixed(2) + 's;--dl:-' + rand(0, 4).toFixed(2) + 's;--a:' + rand(3, 6).toFixed(1) + 'deg"><svg viewBox="0 0 22 ' + H + '" height="' + H + '">' + svg + '</svg></div>';
-        html += '<div class="mx-toran__leaf" style="left:' + (x + gap / 2 + 3) + 'px;--d:' + rand(4, 6).toFixed(2) + 's;--dl:-' + rand(0, 4).toFixed(2) + 's;--a:9deg"><svg viewBox="0 0 16 34" width="16" height="34"><use href="#mx-leaf"/></svg></div>';
-      }
-      t.insertAdjacentHTML('beforeend', html);
-    });
-    document.querySelectorAll('.mx-frieze').forEach(function (f) {
-      f.style.setProperty('--tw', (242 * f.clientHeight / 158).toFixed(2) + 'px');
-    });
-  }
-
-  /* -------- one loop for scroll + cursor parallax, only when needed */
-  var tx = 0, ty = 0, px = 0, py = 0, wTick = false, paisley = document.querySelector('.mx-paisley');
-  function placeWorld() {
-    var vw = window.innerWidth, vh = window.innerHeight, F = vh * 1.8, pad = (F - vh) / 2, sy = window.scrollY;
-    px += (tx - px) * .08; py += (ty - py) * .08;
-    placed.forEach(function (o) {
-      var y = o.fy * F - sy * o.d;
-      y = ((y + pad) % F + F) % F - pad - o.h / 2 + py * o.d * 26;
-      var x = o.fx * vw - o.w / 2 + px * o.d * 42;
-      o.x = x + o.w / 2; o.y = y + o.h / 2;
-      o.el.style.transform = 'translate3d(' + x.toFixed(1) + 'px,' + y.toFixed(1) + 'px,0)';
-    });
-    paisley.style.transform = 'translate3d(' + (px * -10).toFixed(1) + 'px,' + (-(sy * .05) % 654 + py * -7).toFixed(1) + 'px,0)';
-    wTick = Math.abs(tx - px) > .002 || Math.abs(ty - py) > .002;
-    if (wTick) requestAnimationFrame(placeWorld);
-  }
-  function kickWorld() { if (!wTick) { wTick = true; requestAnimationFrame(placeWorld); } }
-
-  buildWorld(); buildTorans();
-  if (REDUCED) { placeWorld(); }
-  else {
-    window.addEventListener('scroll', kickWorld, { passive: true });
-    if (FINE) window.addEventListener('pointermove', function (e) {
-      tx = e.clientX / window.innerWidth * 2 - 1; ty = e.clientY / window.innerHeight * 2 - 1; kickWorld();
-    }, { passive: true });
-    kickWorld();
-    /* the kite crosses every half-minute or so */
-    var flyKite = function () {
-      kite.classList.remove('fly'); void kite.offsetWidth;
-      kite.style.setProperty('--ky', rand(6, 34).toFixed(0) + 'vh');
-      kite.style.setProperty('--kd', rand(22, 32).toFixed(0) + 's');
-      kite.classList.add('fly');
-      setTimeout(flyKite, rand(34000, 52000));
-    };
-    setTimeout(flyKite, 6000);
-  }
-  var rT;
-  window.addEventListener('resize', function () {
-    clearTimeout(rT);
-    rT = setTimeout(function () {
-      if (mqMobile.matches !== mobile) {                                 // density differs per layout: rebuild
-        mobile = mqMobile.matches; scale = mobile ? .62 : 1;
-        placed.forEach(function (o) { o.el.remove(); }); placed = [];
-        world.querySelectorAll('.mx-fall').forEach(function (e) { e.remove(); });
-        buildWorld();
-      }
-      buildTorans(); kickWorld();
-    }, 200);
-  });
-
-  /* -------- sheets settle in as they arrive */
-  if (!REDUCED && 'IntersectionObserver' in window) {
-    var sheets = document.querySelectorAll('.mx .section:not(.on-dark) > .wrap');
-    var so = new IntersectionObserver(function (es) {
-      es.forEach(function (e) { if (e.isIntersecting) { e.target.classList.add('is-in'); so.unobserve(e.target); } });
-    }, { threshold: .04 });
-    sheets.forEach(function (s) {
-      var r = s.getBoundingClientRect();
-      if (r.top < window.innerHeight) return;                // already on screen: leave as is
-      s.classList.add('mx-sheet'); so.observe(s);
-    });
-  }
-
-  /* =================================================== 2. SHREYA
-     Sprite sheet: 4 columns × 279px. Rows were measured on the sheet;
-     each frame keeps its row baseline (feet), so poses never jitter.
-       idle  row 0   front-facing, frames 2–3 are the blink
-       jump  row 3   crouch · rise · peak (sparkles) · land
-       misc  row 4   stand · startled · cheeks puffed · dizzy
-       run   row 5   ready · dash · stride · skid
-     Waist-up rows play inside her speech bubble. Row 9 frame 3 carries
-     the generator's watermark and is never used. */
-  var CW = 279;
-  function fr(c, y0, y1, base) { return { sx: c * CW, sy: y0, sh: y1 - y0, base: base }; }
-  var FR = {
-    idle: [fr(0, 0, 255, 249), fr(1, 0, 255, 249), fr(2, 0, 255, 249), fr(3, 0, 255, 249)],
-    jump: [fr(0, 648, 886, 882), fr(1, 648, 886, 882), fr(2, 648, 890, 884), fr(3, 648, 886, 881)],
-    misc: [fr(0, 884, 1110, 1104), fr(1, 884, 1110, 1104), fr(2, 890, 1099, 1098), fr(3, 890, 1110, 1098)],
-    run:  [fr(0, 1110, 1295, 1294), fr(1, 1110, 1295, 1294), fr(2, 1099, 1295, 1294), fr(3, 1110, 1295, 1293)]
-  };
-  var BUST = {            // row band, frame count, ms per frame, loop
-    type:       { y0: 255,  y1: 456,  n: 4, ms: 140, loop: true },
-    think:      { y0: 456,  y1: 648,  n: 4, ms: 300, loop: false },
-    hearts:     { y0: 1295, y1: 1432, n: 4, ms: 170, loop: true },
-    surprised:  { y0: 1432, y1: 1629, n: 4, ms: 210, loop: false },
-    headphones: { y0: 1629, y1: 1806, n: 4, ms: 320, loop: true },
-    thumbs:     { y0: 1806, y1: 2000, n: 3, ms: 220, loop: false }
-  };
-
-  var host = document.querySelector('.mx-shreya'), cv = host.querySelector('.mx-shreya__cv'), ctx = cv.getContext('2d');
-  var btn = host.querySelector('.mx-shreya__btn'), bub = host.querySelector('.mx-shreya__bubble');
-  var bcv = bub.querySelector('canvas'), bctx = bcv.getContext('2d'), sayEl = bub.querySelector('.mx-shreya__say');
-  var rug = document.querySelector('.mx-rug');
-  var img = new Image();
-  var s, BW, BH, charH, charW, gutW, gutOK, navH, dpr;
-  var st = { x: 0, y: 0, face: 1, pose: FR.idle[0], mode: 'gutter', side: 'R', ledge: null, air: false, shake: 0, abort: false };
-  var tasks = [], reactions = [], lastPose = null, bubble = null, bubbleTimer = 0;
-
-  function layout() {
-    var vw = document.documentElement.clientWidth;
-    s = vw >= 1100 ? .38 : vw >= 768 ? .32 : .26;
-    dpr = Math.min(2, window.devicePixelRatio || 1);
-    BW = Math.round(CW * s); BH = Math.round(258 * s) + 6;
-    charH = 234 * s; charW = 108 * s;
-    navH = (document.querySelector('.nav') || { offsetHeight: 64 }).offsetHeight;
-    gutW = Math.min(vw * .044, 64);                  // the empty margin every section keeps
-    gutOK = gutW >= charW + 4;
-    host.style.width = BW + 'px'; host.style.height = BH + 'px';
-    if (cv.width !== BW * dpr) { cv.width = BW * dpr; cv.height = BH * dpr; lastPose = null; }
-    rug.style.width = (60 * s / .38) + 'px'; rug.style.height = (18 * s / .38) + 'px';
-  }
-  var vw = function () { return document.documentElement.clientWidth; };
-  var vh = function () { return window.innerHeight; };
-  var minY = function () { return navH + charH + 22; };
-  var maxY = function () { return vh() - 12; };
-  var gutX = function (side) { return side === 'L' ? gutW / 2 : vw() - gutW / 2; };
-  var corner = function () { return { x: vw() - BW * .32, y: vh() - 6 }; };
-
-  function draw(f) {
-    ctx.setTransform(1, 0, 0, 1, 0, 0);
-    ctx.clearRect(0, 0, cv.width, cv.height);
-    if (!img.complete || !img.naturalWidth) return;
-    var k = s * dpr, dy = (BH - 4) * dpr - (f.base - f.sy) * k;
-    ctx.imageSmoothingEnabled = true; ctx.imageSmoothingQuality = 'high';
-    ctx.drawImage(img, f.sx, f.sy, CW, f.sh, 0, dy, CW * k, f.sh * k);
-  }
-  function drawBust(kind, i) {
-    var b = BUST[kind], h = b.y1 - b.y0, sx = i * CW + 40, k = Math.min(144 / 200, 144 / h);
-    bctx.clearRect(0, 0, 144, 144);
-    bctx.imageSmoothingQuality = 'high';
-    bctx.drawImage(img, sx, b.y0, 200, h, (144 - 200 * k) / 2, 144 - h * k, 200 * k, h * k);
-  }
-
-  /* -------- tiny task runner: every action is a promise ticked by rAF */
-  function wait(ms, onTick, hard) {
-    return new Promise(function (res) {
-      var t = 0;
-      tasks.push(function (dt) {
-        t += dt; if (onTick) onTick(t);
-        if (t >= ms || (!hard && st.abort)) { res(); return true; }
-        return false;
-      });
-    });
-  }
-  function ledgeY(el) { return el.getBoundingClientRect().top + (el.classList.contains('mx-toran__rope') ? 1 : 0); }
-  function ledgeOk(el) { var y = ledgeY(el); return y > minY() && y < maxY(); }
-  function findLedge() {
-    var best = null, bd = 1e9;
-    document.querySelectorAll('[data-ledge]').forEach(function (el) {
-      if (!ledgeOk(el)) return;
-      var d = Math.abs(ledgeY(el) - st.y); if (d < bd) { bd = d; best = el; }
-    });
-    return best;
-  }
-  /* does a box cover any content? (sampled, cheap) */
-  var CONTENT = /^(P|H1|H2|H3|H4|A|BUTTON|IMG|LI|DD|DT|EM|B|INPUT|FIGCAPTION|TD|TH|SPAN)$/;
-  function boxClear(x0, y0, w, h) {
-    if (y0 < navH || y0 + h > vh()) return false;
-    for (var i = 0; i <= 2; i++) for (var j = 0; j <= 2; j++) {
-      var els = document.elementsFromPoint(x0 + w * i / 2, y0 + h * j / 2);
-      for (var k = 0; k < els.length; k++) {
-        if (els[k].closest('.mx-shreya, .mx-world, .mx-rug, .mx-toran, .mx-frieze')) continue;
-        if (CONTENT.test(els[k].tagName)) return false;
-      }
-    }
-    return true;
-  }
-  function placeBelow(left, bw) {
-    var bh = 112, above = st.y - charH - 14 - bh, below = st.y + 14 + 6;
-    var okA = boxClear(left, above, bw, bh), okB = boxClear(left, below, bw, bh);
-    if (st.mode === 'rope') return okB || !okA;         // garlands hang below a rope: prefer them
-    return !okA && okB;
-  }
-  /* never rest on top of words, links or pictures */
-  function spotClear(x, y) {
-    var pts = [[x, y - charH * .25], [x, y - charH * .7], [x - charW * .4, y - charH * .45], [x + charW * .4, y - charH * .45]];
-    for (var i = 0; i < pts.length; i++) {
-      var els = document.elementsFromPoint(pts[i][0], pts[i][1]);
-      for (var j = 0; j < els.length; j++) {
-        var el = els[j];
-        if (el.closest('.mx-shreya, .mx-world, .mx-rug')) continue;
-        if (/^(P|H1|H2|H3|H4|A|BUTTON|IMG|LI|DD|DT|EM|B|INPUT|FIGCAPTION|TD|TH|svg|use|path|SPAN)$/.test(el.tagName)) return false;
-      }
-    }
-    return true;
-  }
-
-  function idle(ms) {
-    st.face = 1;
-    var next = rand(1200, 2600), bl = -1;
-    return wait(ms, function (t) {
-      if (bl < 0 && t > next) bl = t;
-      if (bl >= 0) {
-        var e = t - bl;
-        st.pose = e < 70 ? FR.idle[2] : e < 150 ? FR.idle[3] : e < 210 ? FR.idle[2] : FR.idle[0];
-        if (e >= 210) { bl = -1; next = t + rand(1600, 3600); }
-      } else st.pose = (t % 9000) > 7600 ? FR.idle[1] : FR.idle[0];
-    });
-  }
-  function runTo(x2) {
-    var x1 = st.x, dist = Math.abs(x2 - x1);
-    if (dist < 6) return Promise.resolve();
-    st.face = x2 > x1 ? 1 : -1; st.pose = FR.run[0];
-    var speed = 250 * s / .38, dur = dist / speed * 1000;
-    return wait(90, null, true).then(function () {
-      return wait(dur, function (t) {
-        st.x = x1 + (x2 - x1) * Math.min(1, t / dur);
-        st.pose = FR.run[1 + Math.floor(t / 115) % 2];
-      });
-    }).then(function () { st.pose = FR.run[3]; return wait(150, null, true); })
-      .then(function () { st.face = 1; st.pose = FR.idle[0]; });
-  }
-  function hop(x2, y2) {          // y2 may be a function (a moving ledge)
-    var x1 = st.x, y1 = st.y, Y = typeof y2 === 'function' ? y2 : function () { return y2; };
-    if (Math.abs(x2 - x1) > 6) st.face = x2 > x1 ? 1 : -1;
-    st.pose = FR.jump[0];
-    return wait(110, null, true).then(function () {
-      var dist = Math.hypot(x2 - x1, Y() - y1), dur = clamp(320 + dist * 1.3, 380, 760);
-      var H = 34 + Math.min(110, dist * .22) + Math.max(0, (y1 - Y()) * .22);
-      st.air = true;
-      return wait(dur, function (t) {
-        var p = Math.min(1, t / dur);
-        st.x = x1 + (x2 - x1) * p;
-        st.y = y1 + (Y() - y1) * p - H * 4 * p * (1 - p);
-        st.pose = p < .38 ? FR.jump[1] : p < .7 ? FR.jump[2] : FR.jump[1];
-      }, true);
-    }).then(function () {
-      st.air = false; st.x = x2; st.y = Y(); st.pose = FR.jump[3];
-      return wait(150, null, true);
-    }).then(function () { st.face = 1; st.pose = FR.idle[0]; });
-  }
-  function pose(f, ms, shake) { st.pose = f; st.shake = shake || 0; return wait(ms, null, true).then(function () { st.shake = 0; st.pose = FR.idle[0]; }); }
-
-  function say(kind, text, ms) {
-    if (!BUST[kind]) return;
-    bubble = { kind: kind, t: 0, i: -1 };
-    sayEl.textContent = text;
-    bub.classList.add('on');
-    clearTimeout(bubbleTimer);
-    bubbleTimer = setTimeout(function () { bub.classList.remove('on'); setTimeout(function () { if (!bub.classList.contains('on')) bubble = null; }, 300); }, ms || 2400);
-  }
-  var IDLE_LINES = [['type', 'Editing…'], ['think', 'Hmm…'], ['headphones', '♪ ♪'], ['hearts', 'Namaste!']];
-  function chatter() { var l = IDLE_LINES[Math.floor(Math.random() * IDLE_LINES.length)]; say(l[0], l[1], 2600); }
-
-  /* a cut-out drifting past her? she notices */
-  var lastScrapNote = 0;
-  function noticeScrap() {
-    if (performance.now() - lastScrapNote < 22000) return false;
-    for (var i = 0; i < placed.length; i++) {
-      var o = placed[i];
-      if (o.name && Math.abs(o.x - st.x) < 130 && Math.abs(o.y - (st.y - charH / 2)) < 120) {
-        lastScrapNote = performance.now(); say('surprised', o.name, 2400); return true;
-      }
-    }
-    return false;
-  }
-
-  /* ---------------- moves between places */
-  function enterLedge(L) {
-    var y = function () { return ledgeY(L); };
-    var x2 = st.mode === 'corner' ? vw() - 90 : clamp(st.x + (st.side === 'L' ? 70 : -70), 30, vw() - 30);
-    st.mode = 'hopping';
-    return hop(x2, y).then(function () { st.mode = 'rope'; st.ledge = L; });
-  }
-  function leaveLedge() {
-    st.ledge = null;
-    if (gutOK) {
-      var side = st.x < vw() / 2 ? 'L' : 'R';
-      st.side = side; st.mode = 'hopping';
-      st.y = clamp(st.y, minY() - 40, maxY());
-      return hop(gutX(side), clamp(st.y, minY() + 20, maxY() - 10)).then(function () { st.mode = 'gutter'; });
-    }
-    var c = corner(); st.mode = 'hopping'; st.y = clamp(st.y, minY() - 40, maxY());
-    return hop(c.x, c.y).then(function () { st.mode = 'corner'; });
-  }
-  function hopInGutter() {
-    for (var k = 0; k < 8; k++) {
-      var y2 = k < 5 ? clamp(st.y + rand(80, 230) * (Math.random() < .5 ? -1 : 1), minY() + 10, maxY())
-                     : rand(minY() + 10, maxY());
-      if (Math.abs(y2 - st.y) > 40 && spotClear(gutX(st.side), y2)) { st.ducked = false; return hop(gutX(st.side), y2); }
-    }
-    /* the whole margin is busy (a full-bleed strip, say): duck below the
-       edge of the screen and peek, then climb back when there's room */
-    if (st.ducked) return idle(1800);
-    st.ducked = true;
-    return hop(gutX(st.side), vh() + charH * .5);
-  }
-
-  /* ---------------- the little brain */
-  function step() {
-    st.abort = false;
-    layout();
-    if (reactions.length) return reactions.shift()();
-    var vwNow = vw();
-    if (st.mode === 'rope') {
-      if (!st.ledge || !ledgeOk(st.ledge)) return leaveLedge();
-      var r = Math.random();
-      if (r < .45) return runTo(rand(40, vwNow - 40));
-      if (r < .75) return noticeScrap() ? idle(2200) : idle(rand(1800, 3800));
-      if (r < .88) { chatter(); return idle(rand(1800, 2600)); }
-      return gutOK ? leaveLedge() : idle(1500);
-    }
-    if (st.mode === 'gutter' && !gutOK) { var c = corner(); st.mode = 'hopping'; return hop(c.x, c.y).then(function () { st.mode = 'corner'; }); }
-    if (st.mode === 'corner' && gutOK) { st.side = 'R'; st.mode = 'hopping'; return hop(gutX('R'), clamp(st.y, minY() + 20, maxY())).then(function () { st.mode = 'gutter'; }); }
-    var L = findLedge();
-    if (L && Math.random() < (st.ducked ? .9 : .55)) { st.ducked = false; return enterLedge(L); }
-    if (st.mode === 'gutter' && (st.ducked || !spotClear(st.x, st.y))) return hopInGutter();
-    var q = Math.random();
-    if (q < .5) return noticeScrap() ? idle(2400) : idle(rand(2200, 4800));
-    if (q < .8 && st.mode === 'gutter') return hopInGutter();
-    chatter(); return idle(rand(2000, 3000));
-  }
-  function brain() { Promise.resolve(step()).then(brain, brain); }
-
-  /* ---------------- render loop (positions every frame, redraws on change) */
-  var last = 0, rugX = 0, rugY = 0, clearT = 0;
-  function loop(ts) {
-    var dt = Math.min(50, ts - (last || ts)); last = ts;
-    tasks = tasks.filter(function (fn) { return !fn(dt); });
-    if (st.mode === 'rope' && !st.air && st.ledge) {
-      st.y = ledgeY(st.ledge);
-      if (!ledgeOk(st.ledge)) st.abort = true;       // her rope is scrolling away: cut the current action short
-    }
-    if (st.mode === 'corner' && !st.air) { var c = corner(); st.x = c.x; st.y = c.y; }
-    /* content scrolled under her while she rests in a margin? move along */
-    clearT += dt;
-    if (clearT > 500) {
-      clearT = 0;
-      if (st.mode === 'gutter' && !st.air && !st.ducked && !spotClear(st.x, st.y)) st.abort = true;
-    }
-    var jx = st.shake ? (Math.random() - .5) * st.shake : 0;
-    host.style.transform = 'translate3d(' + (st.x - BW / 2 + jx).toFixed(1) + 'px,' + (st.y - (BH - 4)).toFixed(1) + 'px,0)';
-    cv.style.transform = st.face < 0 ? 'scaleX(-1)' : '';
-    if (st.pose !== lastPose) { draw(st.pose); lastPose = st.pose; }
-    /* the rug chases her feet in the margins, vanishes on a rope */
-    var onRug = st.mode === 'gutter' || st.mode === 'corner' || (st.mode === 'hopping' && !st.ledge);
-    rug.classList.toggle('on', onRug && st.mode !== 'hopping' || (st.mode === 'hopping' && onRug && !st.air));
-    rugX += (st.x - rugX) * .16; rugY += (st.y - rugY) * .16;
-    rug.style.transform = 'translate3d(' + (rugX - rug.offsetWidth / 2).toFixed(1) + 'px,' + (rugY - rug.offsetHeight * .35).toFixed(1) + 'px,0)';
-    if (bubble) {
-      bubble.t += dt;
-      var b = BUST[bubble.kind], i = Math.floor(bubble.t / b.ms);
-      i = b.loop ? i % b.n : Math.min(i, b.n - 1);
-      if (i !== bubble.i) { drawBust(bubble.kind, i); bubble.i = i; }
-      var bw = 86, left = clamp(st.x - bw / 2, 6, vw() - bw - 6);
-      bub.style.left = (left - (st.x - BW / 2)) + 'px';
-      /* above or below her, whichever covers no text, link or button;
-         re-decided when she changes place mid-sentence */
-      if (bubble.mode !== st.mode) { bubble.mode = st.mode; bubble.below = placeBelow(left, bw); }
-      var below = bubble.below;
-      bub.classList.toggle('below', below);
-      bub.style.bottom = below ? 'auto' : (charH + 14) + 'px';
-      bub.style.top = below ? 'calc(100% + 14px)' : 'auto';
-      bub.style.setProperty('--tail', clamp(st.x - left, 14, bw - 14) + 'px');
-    }
-    requestAnimationFrame(loop);
-  }
-
-  /* ---------------- reactions to the visitor */
-  function react(fn) { reactions.push(fn); st.abort = true; }
-  var lastHover = 0, clicks = [];
-  btn.addEventListener('pointerenter', function () {
-    if (REDUCED || performance.now() - lastHover < 4000) return;
-    lastHover = performance.now();
-    say('hearts', 'Hi there!', 2200);
-    react(function () { return pose(FR.misc[1], 320, 3).then(function () { return idle(1600); }); });
-  });
-  btn.addEventListener('click', function () {
-    var now = performance.now();
-    clicks = clicks.filter(function (t) { return now - t < 3000; }); clicks.push(now);
-    burst();
-    if (REDUCED) { say('thumbs', 'Namaste!', 2200); return; }
-    if (clicks.length >= 4) { clicks = []; reactions = []; say('surprised', 'Okay, okay!', 2000); react(function () { return pose(FR.misc[2], 1300); }); return; }
-    say('thumbs', 'Namaste!', 2200);
-    react(function () {
-      return st.mode === 'rope' ? hop(st.x, function () { return ledgeY(st.ledge); }).then(function () { st.mode = 'rope'; }) : hop(st.x, st.y);
-    });
-  });
-  function burst() {
-    for (var i = 0; i < 8; i++) {
-      var p = document.createElement('div'), a = i / 8 * Math.PI * 2 + rand(-.3, .3), d = rand(40, 80);
-      p.className = 'mx-burst';
-      p.style.cssText = 'transform:translate3d(' + (st.x - 7) + 'px,' + (st.y - charH * .6) + 'px,0);--bx:' + (st.x - 7 + Math.cos(a) * d).toFixed(0) + 'px;--by:' + (st.y - charH * .6 + Math.sin(a) * d).toFixed(0) + 'px;--br:' + rand(-200, 200).toFixed(0) + 'deg;color:' + PAL[i % 5];
-      p.innerHTML = '<svg viewBox="' + (i % 2 ? '-10 -10 20 20' : '0 0 10 16') + '" width="14" height="14"><use href="#' + (i % 2 ? 'mx-mari' : 'mx-petal') + '"/></svg>';
-      document.body.appendChild(p);
-      setTimeout(p.remove.bind(p), 950);
-    }
-  }
-  /* she notices a cursor that comes close */
-  var lastNotice = 0;
-  if (FINE) document.addEventListener('pointermove', function (e) {
-    if (REDUCED || bubble || performance.now() - lastNotice < 14000) return;
-    if (Math.hypot(e.clientX - st.x, e.clientY - (st.y - charH / 2)) < 140 && !btn.matches(':hover')) {
-      lastNotice = performance.now();
-      say('surprised', 'Oh! Hello', 1800);
-      react(function () { return pose(FR.misc[1], 300, 2).then(function () { return idle(1200); }); });
-    }
-  }, { passive: true });
-  /* the page talks to her too */
-  var emailBtn = document.querySelector('.email-btn');
-  if (emailBtn) {
-    emailBtn.addEventListener('pointerenter', function () { say('hearts', 'Say hi!', 2000); });
-    emailBtn.addEventListener('click', function () { setTimeout(function () { say('thumbs', 'Got it!', 2000); }, 150); });
-  }
-  /* a line per section, once, as you arrive */
-  var LINES = { 'sel-t': ['hearts', 'My favourites'], 'ser-t': ['think', 'Pick a way in'], 'film-t': ['headphones', 'Night mode'],
-                'about-t': ['hearts', "That's me!"], 'led-t': ['type', 'Keeping count'], 'con-t': ['thumbs', 'Write to me!'] };
-  if ('IntersectionObserver' in window) {
-    var lo = new IntersectionObserver(function (es) {
-      es.forEach(function (e) {
-        if (!e.isIntersecting) return;
-        var l = LINES[e.target.id]; lo.unobserve(e.target);
-        if (l && !bubble) say(l[0], l[1], 2600);
-      });
-    }, { threshold: .6 });
-    Object.keys(LINES).forEach(function (id) { var el = document.getElementById(id); if (el) lo.observe(el); });
-  }
-  /* scrolling hard makes her dizzy */
-  var lastSY = window.scrollY, lastST = performance.now(), lastDizzy = 0;
-  if (!REDUCED) window.addEventListener('scroll', function () {
-    var now = performance.now(), v = Math.abs(window.scrollY - lastSY) / Math.max(16, now - lastST) * 1000;
-    lastSY = window.scrollY; lastST = now;
-    if (v > 4200 && st.mode !== 'rope' && !st.air && now - lastDizzy > 9000) {
-      lastDizzy = now;
-      say('surprised', 'Whoa!', 1500);
-      react(function () { return pose(FR.misc[3], 900, 3); });
-    }
-  }, { passive: true });
-
-  /* ---------------- start */
-  img.onload = function () {
-    layout();
-    if (REDUCED) {                      // stays put, still says hello when pressed
-      var c = gutOK ? { x: gutX('R'), y: vh() * .78 } : corner();
-      st.x = c.x; st.y = c.y; st.mode = gutOK ? 'gutter' : 'corner';
-      rugX = st.x; rugY = st.y;
-      tasks = []; st.pose = FR.idle[0];
-      (function still() { layout(); if (st.mode === 'corner') { var k = corner(); st.x = k.x; st.y = k.y; } loop(performance.now()); })();
-      return;
-    }
-    /* she arrives by leaping in from below the right edge */
-    st.mode = gutOK ? 'hopping' : 'hopping'; st.side = 'R';
-    st.x = vw() + 30; st.y = vh() + 40; rugX = st.x; rugY = st.y;
-    requestAnimationFrame(loop);
-    setTimeout(function () {
-      var target = gutOK ? { x: gutX('R'), y: clamp(vh() * .72, minY() + 20, maxY()) } : corner();
-      hop(target.x, target.y).then(function () {
-        st.mode = gutOK ? 'gutter' : 'corner';
-        say('hearts', 'Namaste!', 2400);
-        return idle(1800);
-      }).then(brain);
-    }, 1400);
-  };
-  img.src = 'assets/maximal/shreya-sprites-keyed.webp';
-  window.addEventListener('resize', function () { layout(); lastPose = null; });
-})();
-</script>
+<script src="js/home.js"></script>
+<script src="js/maximal.js"></script>
 </body>
 </html>

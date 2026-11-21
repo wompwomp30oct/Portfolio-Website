@@ -11,6 +11,8 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=JetBrains+Mono:wght@400;500&family=Plus+Jakarta+Sans:wght@400;500;600&family=Syne:wght@700;800&family=Yatra+One&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="css/kagaz.css">
+<link rel="stylesheet" href="css/maximal.css">
+<link rel="preload" as="image" href="assets/maximal/shreya-sprites-keyed.webp">
 <script>document.documentElement.classList.add('js')</script>
 <style>
   /* page-only helpers for the specimen sheet */
@@ -94,7 +96,7 @@
   }
 </style>
 </head>
-<body>
+<body class="mx">
 <a class="skip" href="#main">Skip to content</a>
 <div class="curtain" aria-hidden="true"><div class="curtain__label"><span class="deva">०३</span><span class="mono">Colophon</span></div></div>
 
@@ -130,7 +132,7 @@
     <div class="g12">
       <div class="phead__t">
         <span class="idx"><span class="deva">०३</span><span>/ 03 · Colophon</span></span>
-        <h1 class="display lines">
+        <h1 class="display lines" data-shreya-says="think|How it&#39;s built">
           <span><span>How this site</span></span>
           <span><span>is <em>set</em>.</span></span>
         </h1>
@@ -141,6 +143,8 @@
     </div>
   </div>
 </section>
+
+<div class="mx-toran" aria-hidden="true"><div class="mx-toran__rope" data-ledge></div></div>
 
 <div class="wrap section" style="padding-top:clamp(40px,5vw,72px)">
   <div class="g12">
@@ -172,13 +176,15 @@
             <span class="idx"><span class="deva">००</span><span>/ index.html</span></span>
             <h3>Home</h3>
             <ul class="tree">
-              <li>Hero <span class="note">· statement + badge</span></li>
-              <li>01 Selected plates</li>
-              <li>02 Four ways in <span class="note">· series</span></li>
-              <li>03 After dark <span class="note">· film strip</span></li>
-              <li>04 About teaser</li>
-              <li>05 Ledger <span class="note">· by year</span></li>
-              <li>06 Contact</li>
+              <li>Lotus bloom <span class="note">· first visit</span></li>
+              <li>Hero <span class="note">· lotus + Shreya</span></li>
+              <li>01 Practice <span class="note">· five petals</span></li>
+              <li>02 Selected plates</li>
+              <li>03 Four ways in <span class="note">· series</span></li>
+              <li>04 After dark <span class="note">· film strip</span></li>
+              <li>05 About teaser</li>
+              <li>06 Ledger <span class="note">· by year</span></li>
+              <li>07 Contact</li>
             </ul>
           </div>
           <div>
@@ -313,7 +319,7 @@
       <section id="components" class="sys-block">
         <header class="sec-head">
           <span class="idx"><span class="deva">०५</span><span>/ 05</span></span>
-          <h2 class="display-s">Components</h2>
+          <h2 class="display-s" data-shreya-says="type|All the parts">Components</h2>
           <p class="sec-meta mono-s muted">Hover, focus and press states are live.</p>
         </header>
 
@@ -529,6 +535,7 @@
 
 <script src="js/works.js"></script>
 <script src="js/site.js"></script>
+<script src="js/maximal.js"></script>
 <script>
   /* specimen-only: replay the curtain wipe; demo filter buttons toggle */
   document.getElementById('replay').addEventListener('click', function () {

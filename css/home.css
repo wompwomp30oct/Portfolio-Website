@@ -1,0 +1,216 @@
+/* =====================================================================
+   HOME — lotus hero, the opening bloom, and the five practice petals.
+   Loaded on index.html only, after kagaz.css and maximal.css.
+   ===================================================================== */
+html{ scrollbar-gutter:stable; }             /* no width jump when the intro releases scrolling */
+
+/* ---------------------------------------------------------- HERO */
+.mx .mx-hero{ background:transparent !important; position:relative; min-height:calc(100svh - var(--nav-h)); display:flex; align-items:center; overflow:hidden; }
+.mx-hero::before{                            /* the crimson scrim, as a layer so it can fade in */
+  content:""; position:absolute; inset:0; z-index:0; pointer-events:none;
+  background:linear-gradient(90deg, rgba(26,5,11,.95) 0%, rgba(26,5,11,.86) 38%, rgba(26,5,11,.34) 62%, rgba(26,5,11,.08) 100%);
+  transition:opacity 1.2s var(--ease-editorial);
+}
+.mx-hero > .wrap{ position:relative; z-index:1; width:100%; }
+.mx-hero .g12{ align-items:center; }
+.mx-hero .hero__copy{ grid-column:1 / span 6; position:relative; z-index:2; }
+.mx-hero .hero__copy .display{ font-size:clamp(2.6rem, 1.3rem + 4.3vw, 5.25rem); }
+.mx-hero .hero__visual{ grid-column:7 / span 6; position:relative; margin:0; max-width:none; padding:0; }
+.mx-replay{ background:none; border:0; padding:0; color:inherit; font:inherit; letter-spacing:inherit; text-transform:inherit; cursor:pointer; text-decoration:underline; text-underline-offset:3px; }
+.mx-replay:hover{ color:var(--accent-haldi); }
+
+/* ---------------------------------------------------------- THE LOTUS
+   viewBox -300 -300 600 500; petals spring from (0, 96); Shreya's seat is
+   (0, 72) → 74.4% down. Order: halo · back petals + pod · seat · front petals */
+.mx-lotus{ position:relative; width:min(100%, 600px); aspect-ratio:600 / 500; margin-inline:auto; transform-origin:50% 50%; z-index:1; }
+.mx-lotus__float{ position:absolute; inset:0; animation:mxFloat 6s ease-in-out infinite alternate; }
+@keyframes mxFloat{ from{ transform:translateY(-4px); } to{ transform:translateY(5px); } }
+.mx-lotus__art{ position:absolute; inset:0; }
+.mx-lotus__back, .mx-lotus__front{ position:absolute; inset:0; width:100%; height:100%; overflow:visible; }
+.mx-lotus__front{ z-index:2; pointer-events:none; }
+.mx-lotus__halo{ position:absolute; left:50%; top:70%; width:120%; height:auto; aspect-ratio:1; translate:-50% -50%; pointer-events:none; animation:mxSpin 150s linear infinite; }
+.mx-lotus__seat{ position:absolute; left:50%; top:74.4%; width:0; height:0; z-index:1; }
+.lp-ripple{ transform-box:fill-box; transform-origin:center; animation:mxRipple 4.6s ease-out infinite; }
+.lp-ripple.r2{ animation-delay:-2.3s; }
+@keyframes mxRipple{ from{ transform:scale(.55); opacity:.9; } to{ transform:scale(1.12); opacity:0; } }
+
+/* a small postcard propped against the lotus: the archive is one click away */
+.mx-postcard{ position:absolute; right:0; bottom:4%; z-index:3; width:clamp(74px, 8.5vw, 116px); text-decoration:none; transform:rotate(6deg); transition:transform .35s var(--ease-editorial); }
+.mx-postcard .mat{ padding:5px; box-shadow:5px 5px 0 var(--accent-sindoor); }
+.mx-postcard .mat__win{ aspect-ratio:736 / 1308; }
+.mx-postcard:hover{ transform:rotate(1deg) translateY(-6px); }
+.mx-postcard__cap{ display:block; margin-top:8px; color:var(--ink-cream-dim); font-size:10px; }
+
+/* ---------------------------------------------------------- OPENING BLOOM */
+.mx-dusk{ position:fixed; inset:0; z-index:0; pointer-events:none; opacity:0;
+  background:radial-gradient(ellipse 70% 60% at 50% 55%, rgba(10,2,6,.5), rgba(10,2,6,.97) 72%); }
+.mx-skip{ position:fixed; right:clamp(16px, 3vw, 32px); bottom:clamp(16px, 3vw, 32px); z-index:9200; }
+.mx-skip[hidden]{ display:none; }
+.mx .mx-skip.btn{ background:rgba(20,4,8,.6); color:var(--ink-cream); border-color:var(--ink-cream); }
+.nav{ transition:transform .9s var(--ease-editorial); }
+.mx-hero .hero__copy, .mx-hero .hero__strip, .mx-postcard, .mx main > :not(.hero), .mx .footer, .mx body > .trim{ transition:opacity .9s var(--ease-editorial) .15s; }
+html.mx-intro, html.mx-intro body{ overflow:hidden; }
+html.mx-intro .curtain{ display:none; }
+html.mx-intro .nav{ transform:translateY(-110%); }
+html.mx-intro .mx-hero::before{ opacity:0; }
+html.mx-intro .mx-hero{ overflow:visible; }
+html.mx-intro .mx-hero .hero__copy, html.mx-intro .mx-hero .hero__strip, html.mx-intro .mx-postcard,
+html.mx-intro main > :not(.hero), html.mx-intro .footer, html.mx-intro body > .trim{ opacity:0; }
+html.mx-intro .mx-lotus{ z-index:5; }
+/* the hand-off: everything arrives while the lotus glides home */
+html.mx-intro.mx-intro-out .nav{ transform:none; }
+html.mx-intro.mx-intro-out .mx-hero::before{ opacity:1; }
+html.mx-intro.mx-intro-out .mx-hero .hero__copy, html.mx-intro.mx-intro-out .mx-hero .hero__strip, html.mx-intro.mx-intro-out .mx-postcard,
+html.mx-intro.mx-intro-out main > :not(.hero), html.mx-intro.mx-intro-out .footer, html.mx-intro.mx-intro-out body > .trim{ opacity:1; }
+
+/* ---------------------------------------------------------- PRACTICE: five petals */
+.pr-intro{ max-width:54ch; margin:-8px 0 clamp(28px, 4vw, 48px); }
+.pr{ display:grid; grid-template-columns:minmax(0, 4fr) minmax(0, 8fr); gap:clamp(24px, 4vw, 56px); align-items:start; }
+.pr-nav{ position:sticky; top:calc(var(--nav-h) + 28px); }
+.pr-dial{ display:block; width:100%; max-width:300px; margin:0 auto 18px; overflow:visible; }
+.pr-dial [data-i]{ cursor:pointer; }
+.pr-dial__p{ fill:var(--c); stroke:#141210; stroke-width:2; opacity:.32; transform-box:fill-box; transform-origin:50% 100%; transition:opacity .3s linear, transform .55s var(--ease-editorial); }
+.pr-dial [data-i]:hover .pr-dial__p{ opacity:.65; }
+.pr-dial[data-active="0"] [data-i="0"] .pr-dial__p, .pr-dial[data-active="1"] [data-i="1"] .pr-dial__p,
+.pr-dial[data-active="2"] [data-i="2"] .pr-dial__p, .pr-dial[data-active="3"] [data-i="3"] .pr-dial__p,
+.pr-dial[data-active="4"] [data-i="4"] .pr-dial__p{ opacity:1; transform:scale(1.13); }
+.pr-dial__n{ font-family:var(--font-devanagari); font-size:24px; fill:#F6EFDD; text-anchor:middle; dominant-baseline:middle; pointer-events:none; paint-order:stroke; stroke:#141210; stroke-width:3px; }
+
+.pr-tabs{ display:grid; border:var(--border-ink); background:var(--bg-kagaz); }
+.pr-tabs [role="tab"]{
+  display:grid; grid-template-columns:2.2rem 1fr; align-items:center; gap:10px;
+  padding:12px 14px; text-align:left; background:transparent; border:0; border-bottom:var(--border-ink);
+  cursor:pointer; color:var(--ink-kajal); transition:background-color var(--duration-snap) linear, color var(--duration-snap) linear;
+}
+.pr-tabs [role="tab"]:last-child{ border-bottom:0; }
+.pr-tabs .deva{ font-size:1.55rem; line-height:1; color:var(--c); }
+.pr-tabs b{ display:block; font-family:var(--font-brutalist); font-weight:700; font-size:1rem; letter-spacing:-.01em; text-transform:uppercase; line-height:1.1; }
+.pr-tabs small{ font-family:var(--font-mono); font-size:var(--t-mono-s); letter-spacing:.06em; text-transform:uppercase; color:var(--ink-slate); }
+.pr-tabs [role="tab"]:hover{ background:var(--bg-parchment); }
+.pr-tabs [aria-selected="true"]{ background:var(--c); color:#fff; }
+.pr-tabs [aria-selected="true"] .deva, .pr-tabs [aria-selected="true"] small{ color:rgba(255,255,255,.88); }
+#pr-tab-product{ --c:#1F4FA8; } #pr-tab-projects{ --c:#0F6B4F; } #pr-tab-marketing{ --c:#C2187A; } #pr-tab-content{ --c:#D92B1C; }
+#pr-tab-clients{ --c:#E5A024; }
+#pr-tab-clients[aria-selected="true"]{ color:#141210; }
+#pr-tab-clients[aria-selected="true"] .deva, #pr-tab-clients[aria-selected="true"] small{ color:#3A2508; }
+#pr-tab-clients .deva{ color:#A86400; }
+
+/* a chapter: each petal its own colour (--c), soft ground (--soft), ink-safe text colour (--ci) */
+.pr-panel{ position:relative; border:var(--border-ink); background:var(--soft); box-shadow:8px 8px 0 var(--c); padding:0 clamp(18px, 3vw, 36px) clamp(22px, 3vw, 36px); }
+.pr-panel + .pr-panel{ margin-top:32px; }                 /* only matters without JS, when all are shown */
+.pr-panel[hidden]{ display:none; }
+.pr-panel.is-in{ animation:prIn .6s var(--ease-editorial); }
+@keyframes prIn{ from{ opacity:0; transform:translateY(14px); } to{ opacity:1; transform:none; } }
+[data-theme="product"]  { --c:#1F4FA8; --soft:#E4EBF8; --ci:#1F4FA8; }
+[data-theme="projects"] { --c:#0F6B4F; --soft:#DCEFE5; --ci:#0F6B4F; }
+[data-theme="clients"]  { --c:#E5A024; --soft:#FBEFD5; --ci:#8A5300; }
+[data-theme="marketing"]{ --c:#C2187A; --soft:#F8E1EC; --ci:#A8125F; }
+[data-theme="content"]  { --c:#D92B1C; --soft:#FAE2DC; --ci:#B8221A; }
+.pr-panel:focus-visible{ outline-offset:6px; }
+
+.pr-band{
+  display:flex; align-items:center; height:54px; margin:0 calc(-1 * clamp(18px, 3vw, 36px)) 22px; padding-inline:clamp(18px, 3vw, 36px);
+  border-bottom:var(--border-ink); background-color:var(--c); color:#fff; overflow:hidden;
+  font:500 var(--t-mono-s)/1 var(--font-mono); letter-spacing:.14em;
+}
+.pr-band span{ background:rgba(20,18,16,.55); padding:6px 9px; }
+[data-theme="product"] .pr-band{       /* blueprint grid */
+  background-image:linear-gradient(rgba(255,255,255,.2) 1px, transparent 1px), linear-gradient(90deg, rgba(255,255,255,.2) 1px, transparent 1px);
+  background-size:14px 14px;
+}
+[data-theme="projects"] .pr-band{      /* kalava rope with marigold beads */
+  background-image:radial-gradient(circle at 14px 50%, #FFD84D 0 3px, #F2A007 3.5px 7px, #141210 7.5px 8.5px, transparent 9px),
+                   linear-gradient(transparent 24px, #F2A007 24px 30px, transparent 30px);
+  background-size:42px 100%, 100% 100%;
+}
+[data-theme="clients"] .pr-band{       /* postage-stamp perforation */
+  color:#141210;
+  background-image:radial-gradient(circle at 6px 0, var(--soft) 0 4px, transparent 4.5px), radial-gradient(circle at 6px 100%, var(--soft) 0 4px, transparent 4.5px);
+  background-size:12px 100%; background-repeat:repeat-x;
+}
+[data-theme="clients"] .pr-band span{ background:rgba(255,255,255,.6); }
+[data-theme="marketing"] .pr-band{     /* a burst, like a kite catching light */
+  background-image:repeating-conic-gradient(from 0deg at 88% 50%, rgba(255,255,255,.2) 0 7deg, transparent 7deg 14deg);
+}
+[data-theme="content"] .pr-band{       /* film sprockets */
+  background-image:repeating-linear-gradient(90deg, #F6EFDD 0 9px, transparent 9px 20px), repeating-linear-gradient(90deg, #F6EFDD 0 9px, transparent 9px 20px);
+  background-size:100% 6px, 100% 6px; background-position:0 5px, 0 calc(100% - 5px); background-repeat:no-repeat;
+}
+.pr-kicker{ color:var(--ink-slate); }
+.pr-kicker .deva{ color:var(--ci); font-size:1.25em; margin-right:4px; }
+.pr-head h3{ color:var(--ci); margin:6px 0 10px; font-size:clamp(1.35rem, .9rem + 1.6vw, 2.25rem); overflow-wrap:anywhere; }
+.pr-lede{ max-width:58ch; }
+.pr-sub{ margin:28px 0 12px; padding-top:14px; border-top:1px solid rgba(20,18,16,.22); color:var(--ink-slate); }
+
+/* process, drawn five different ways */
+.pr-flow{ margin-top:22px; counter-reset:f; }
+.pr-flow b{ display:block; font-family:var(--font-brutalist); font-weight:700; font-size:.875rem; letter-spacing:-.01em; text-transform:uppercase; }
+.pr-flow span{ display:block; margin-top:2px; font-size:.875rem; line-height:1.45; color:var(--ink-slate); }
+/* A · flowchart */
+.pr-flow--steps{ display:grid; grid-template-columns:repeat(3, minmax(0, 1fr)); gap:14px 24px; }
+.pr-flow--steps li{ position:relative; counter-increment:f; padding:12px 12px 12px 46px; background:#fff; border:1.5px solid var(--c); }
+.pr-flow--steps li::before{ content:counter(f, decimal-leading-zero); position:absolute; left:10px; top:12px; padding:3px 4px; background:var(--c); color:#fff; font:500 11px/1 var(--font-mono); }
+.pr-flow--steps li:not(:nth-child(3n)):not(:last-child)::after{ content:"→"; position:absolute; right:-19px; top:50%; translate:0 -50%; color:var(--c); font:500 14px/1 var(--font-mono); }
+/* B · timeline on a rope */
+.pr-flow--timeline{ position:relative; display:grid; grid-template-columns:repeat(5, minmax(0, 1fr)); gap:12px; padding-top:30px; }
+.pr-flow--timeline::before{ content:""; position:absolute; left:0; right:0; top:10px; height:6px; background:repeating-linear-gradient(-55deg, var(--c) 0 5px, #F2A007 5px 10px); border-block:1px solid #141210; }
+.pr-flow--timeline li{ position:relative; min-width:0; }
+.pr-flow--timeline b, .pr-flow--film b{ font-size:.75rem; overflow-wrap:anywhere; }
+.pr-flow--timeline li::before{ content:""; position:absolute; left:0; top:-30px; width:24px; height:24px; border-radius:50%; border:1.5px solid #141210; background:radial-gradient(circle, #FFE88A 0 25%, #F2A007 28% 58%, #E46A0C 61%); }
+/* C · a conversation */
+.pr-flow--chat{ display:grid; gap:10px; max-width:600px; }
+.pr-flow--chat li{ max-width:84%; padding:10px 14px; background:#fff; border:1.5px solid #141210; border-radius:14px 14px 14px 2px; box-shadow:3px 3px 0 #141210; }
+.pr-flow--chat li.me{ justify-self:end; background:var(--c); border-radius:14px 14px 2px 14px; }
+.pr-flow--chat li.me span{ color:#3A2508; }
+/* D · a pinned sticker board */
+.pr-flow--board{ display:flex; flex-wrap:wrap; gap:14px 12px; padding-top:6px; }
+.pr-flow--board li{ position:relative; padding:10px 14px; background:#fff; border:1.5px solid #141210; box-shadow:3px 3px 0 var(--c); font:600 .875rem/1.25 var(--font-body); transform:rotate(-1.6deg); transition:transform .2s var(--ease-editorial); }
+.pr-flow--board li:nth-child(2n){ transform:rotate(1.4deg); }
+.pr-flow--board li:nth-child(3n){ transform:rotate(-.6deg); }
+.pr-flow--board li::before{ content:""; position:absolute; left:50%; top:-6px; width:10px; height:10px; margin-left:-5px; border-radius:50%; background:var(--c); border:1.5px solid #141210; }
+.pr-flow--board li:hover{ transform:rotate(0) scale(1.05); }
+/* E · a film strip */
+.pr-flow--film{ position:relative; display:grid; grid-template-columns:repeat(5, minmax(0, 1fr)); gap:8px; padding:20px 8px; background:#141210; }
+.pr-flow--film::before, .pr-flow--film::after{ content:""; position:absolute; left:6px; right:6px; height:6px; background:repeating-linear-gradient(90deg, #F6EFDD 0 8px, transparent 8px 18px); }
+.pr-flow--film::before{ top:6px; } .pr-flow--film::after{ bottom:6px; }
+.pr-flow--film li{ padding:10px; background:var(--soft); }
+
+/* real deliverables */
+.pr-work{ display:grid; grid-template-columns:repeat(2, minmax(0, 1fr)); gap:14px; }
+.pr-work > li{ display:grid; gap:8px; align-content:start; padding:14px 16px; background:#fff; border:1.5px solid #141210; transition:transform var(--duration-snap) linear, box-shadow var(--duration-snap) linear; }
+.pr-work > li:hover{ transform:translate(-2px, -2px); box-shadow:4px 4px 0 var(--c); }
+.pr-work__h b{ display:block; font-family:var(--font-brutalist); font-weight:700; letter-spacing:-.01em; text-transform:uppercase; color:var(--ci); }
+.pr-work__h span{ color:var(--ink-slate); }
+.pr-work p{ font-size:.9375rem; line-height:1.55; }
+.pr-work p .link{ margin-right:12px; }
+.pr-work .tag{ background:var(--soft); }
+.pr-next{ margin-top:22px; background:none; border:0; padding:0 0 3px; cursor:pointer; color:var(--ink-kajal); }
+
+/* ---------------------------------------------------------- RESPONSIVE */
+@media (max-width:1023px){
+  .mx-hero{ min-height:0; padding-top:clamp(28px, 5vw, 48px); }
+  .mx-hero::before{ background:linear-gradient(180deg, rgba(26,5,11,.55) 0%, rgba(26,5,11,.9) 45%, rgba(26,5,11,.93) 100%); }
+  .mx-hero .hero__copy, .mx-hero .hero__visual{ grid-column:1 / -1; }
+  .mx-hero .hero__visual{ order:-1; width:100%; max-width:520px; justify-self:center; }
+  .pr{ grid-template-columns:1fr; }
+  .pr-nav{ position:static; display:grid; grid-template-columns:200px 1fr; gap:20px; align-items:center; }
+  .pr-dial{ max-width:200px; margin:0; }
+  .pr-flow--timeline{ grid-template-columns:repeat(3, minmax(0, 1fr)); row-gap:40px; }
+}
+@media (max-width:767px){
+  .mx-hero .hero__visual{ max-width:400px; }
+  .mx-postcard{ right:-4px; bottom:0; }
+  .pr-nav{ grid-template-columns:1fr; }
+  .pr-dial{ max-width:200px; margin:0 auto; }
+  .pr-tabs{ grid-auto-flow:column; grid-auto-columns:minmax(148px, 1fr); overflow-x:auto; scroll-snap-type:x mandatory; scrollbar-width:thin; }
+  .pr-tabs [role="tab"]{ border-bottom:0; border-right:var(--border-ink); scroll-snap-align:start; }
+  .pr-tabs [role="tab"]:last-child{ border-right:0; }
+  .pr-flow--steps{ grid-template-columns:1fr; }
+  .pr-flow--steps li::after{ display:none; }
+  .pr-flow--timeline{ grid-template-columns:1fr; padding:0 0 0 36px; row-gap:16px; }
+  .pr-flow--timeline::before{ left:10px; right:auto; top:0; bottom:0; width:6px; height:auto; border-block:0; border-inline:1px solid #141210; }
+  .pr-flow--timeline li::before{ left:-36px; top:0; }
+  .pr-flow--film{ grid-template-columns:1fr 1fr; }
+  .pr-flow--chat li{ max-width:92%; }
+  .pr-work{ grid-template-columns:1fr; }
+}

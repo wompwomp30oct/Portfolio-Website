@@ -11,9 +11,11 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=JetBrains+Mono:wght@400;500&family=Plus+Jakarta+Sans:wght@400;500;600&family=Syne:wght@700;800&family=Yatra+One&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="css/kagaz.css">
+<link rel="stylesheet" href="css/maximal.css">
+<link rel="preload" as="image" href="assets/maximal/shreya-sprites-keyed.webp">
 <script>document.documentElement.classList.add('js')</script>
 </head>
-<body>
+<body class="mx">
 <a class="skip" href="#main">Skip to content</a>
 <div class="curtain" aria-hidden="true"><div class="curtain__label"><span class="deva">०२</span><span class="mono">About</span></div></div>
 
@@ -50,7 +52,7 @@
     <div class="g12">
       <div class="phead__t">
         <span class="idx"><span class="deva">०२</span><span>/ 02 · About</span></span>
-        <h1 class="display lines">
+        <h1 class="display lines" data-shreya-says="hearts|Hi, it&#39;s me!">
           <span><span>Paper, pigment</span></span>
           <span><span>&amp; a <em>bad mood</em>.</span></span>
         </h1>
@@ -66,6 +68,8 @@
     </div>
   </div>
 </section>
+
+<div class="mx-toran" aria-hidden="true"><div class="mx-toran__rope" data-ledge></div></div>
 
 <!-- 01 SPREAD — matted plate left (5), pull-quote, narrative and
      a Colophon-style principles list right (6). Parallax on the mat. -->
@@ -95,13 +99,15 @@
   </div>
 </section>
 
+<div class="mx-frieze" aria-hidden="true" data-ledge><div class="mx-frieze__run"></div></div>
+
 <!-- 02 CAPABILITIES — "print spec" index, 3 × 2 bordered grid.
      Grouped by craft, evidenced by plates in the archive. -->
 <section class="section on-parchment turn turn-b">
   <div class="wrap">
     <header class="sec-head">
       <span class="idx"><span class="deva">०१</span><span>/ 01</span></span>
-      <h2 class="display-s">Print <em>spec</em></h2>
+      <h2 class="display-s" data-shreya-says="type|My toolkit">Print <em>spec</em></h2>
       <p class="sec-meta mono-s muted">What the work is made of. Each line points at plates that show it.</p>
     </header>
     <div class="caps">
@@ -151,7 +157,7 @@
   <div class="wrap">
     <header class="sec-head">
       <span class="idx"><span class="deva">०२</span><span>/ 02</span></span>
-      <h2 class="display-s">Open <em>to</em></h2>
+      <h2 class="display-s" data-shreya-says="thumbs|Let&#39;s work!">Open <em>to</em></h2>
       <p class="sec-meta mono-s muted">Work this practice translates into.</p>
     </header>
     <div class="g12" style="row-gap:40px;align-items:start">
@@ -173,11 +179,13 @@
   </div>
 </section>
 
+<div class="mx-toran" aria-hidden="true"><div class="mx-toran__rope" data-ledge></div></div>
+
 <!-- 04 CONTACT -->
 <section id="contact" class="section on-parchment turn contact">
   <div class="wrap">
     <span class="idx"><span class="deva">०३</span><span>/ 03 · Contact</span></span>
-    <h2 class="display lines" style="margin-top:18px">
+    <h2 class="display lines" style="margin-top:18px" data-shreya-says="thumbs|Write to me!">
       <span><span>Let's make something</span></span>
       <span><span><em>unforgettable.</em></span></span>
     </h2>
@@ -230,5 +238,6 @@
 
 <script src="js/works.js"></script>
 <script src="js/site.js"></script>
+<script src="js/maximal.js"></script>
 </body>
 </html>

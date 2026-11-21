@@ -11,9 +11,11 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=JetBrains+Mono:wght@400;500&family=Plus+Jakarta+Sans:wght@400;500;600&family=Syne:wght@700;800&family=Yatra+One&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="css/kagaz.css">
+<link rel="stylesheet" href="css/maximal.css">
+<link rel="preload" as="image" href="assets/maximal/shreya-sprites-keyed.webp">
 <script>document.documentElement.classList.add('js')</script>
 </head>
-<body>
+<body class="mx">
 <a class="skip" href="#main">Skip to content</a>
 <div class="curtain" aria-hidden="true"><div class="curtain__label"><span class="deva">०१</span><span class="mono">The Archive</span></div></div>
 
@@ -50,7 +52,7 @@
     <div class="g12">
       <div class="phead__t">
         <span class="idx"><span class="deva">०१</span><span>/ 01 · Index of plates</span></span>
-        <h1 class="display lines">
+        <h1 class="display lines" data-shreya-says="hearts|All of them!">
           <span><span>The <em>archive</em>,</span></span>
           <span><span><span lang="hi" class="deva" data-count="all" data-deva>२९</span> plates.</span></span>
         </h1>
@@ -62,10 +64,12 @@
   </div>
 </section>
 
+<div class="mx-toran" aria-hidden="true"><div class="mx-toran__rope" data-ledge></div></div>
+
 <section class="section" style="padding-top:clamp(32px,4vw,56px)">
   <div class="wrap">
     <div class="archive-tools">
-      <div class="filters" role="group" aria-label="Filter by series"></div>
+      <div class="filters" role="group" aria-label="Filter by series" data-shreya-says="think|Pick a series"></div>
       <div style="display:flex;align-items:center;gap:16px">
         <span class="mono-s muted" data-filter-status role="status"></span>
         <div class="view-toggle" role="group" aria-label="View">
@@ -133,5 +137,6 @@
 
 <script src="js/works.js"></script>
 <script src="js/site.js"></script>
+<script src="js/maximal.js"></script>
 </body>
 </html>
